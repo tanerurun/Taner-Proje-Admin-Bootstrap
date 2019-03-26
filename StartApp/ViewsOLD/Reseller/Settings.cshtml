@@ -1,0 +1,50 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "CustomerDetails";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Tercihler</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Reseller">Panel</a></li>
+                        <li class="active">Tercihler</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h2 class="m-b-20">Firma Bilgileri</h2>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs " role="tablist">
+                            <li role="presentation" class="nav-item"><a href="~/Reseller/Customer" class="nav-link" aria-controls="profile" aria-expanded="false"><span><i class="ti-user"></i></span> Müşteri Bilgileri </a></li>
+                            <li role="presentation" class="nav-item"><a href="~/Reseller/SupportList" class="nav-link" aria-controls="messages" aria-expanded="false"><span><i class="ti-email"></i></span> Destek Talebi</a></li>
+                            <li role="presentation" class="nav-item"><a href="~/Reseller/Settings" class="nav-link active" aria-controls="settings" aria-expanded="false"><span><i class="ti-settings"></i></span> Tercihler</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="iprofile" aria-expanded="false">
+                                Tercihler
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- /.container-fluid -->
+       @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+    </div>
+}
+

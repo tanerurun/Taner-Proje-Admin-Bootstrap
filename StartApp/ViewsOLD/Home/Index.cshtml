@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Toptan Ürün Arama Motoru - toptanara.com";
+    ViewBag.Description = "Üreticiden direkt satıcıya toptan ürünler burada! Dekorasyon, hediyelik eşya, züccaciye, tekstil, mutfak ürünler, ayakkabı ne ararsan burada..";
+    ViewBag.MetaTag = "toptan, toptan ürünler, ucuz, istoç, toptancılar, toptan mal, toptan sat, dekorasyon, hediyelik eşya, züccaciye, tekstil, mutfak ürünler, ayakkabı, beyaz eşya";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    @Html.Partial("~/Views/Shared/Home/_Partial_Search_Engine.cshtml")
+    <div class="container whitebox">
+
+        @Html.Partial("~/Views/Shared/Home/_Partial_Banner_Category.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/_Partial_Promo_Banner.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/_Partial_New_Products.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/HomeProducts/_Partial_Home_Bambu_Urunler.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/HomeProducts/_Partial_Home_Saklama_Kaplari.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/HomeProducts/_Partial_Home_Fincanlar.cshtml")
+
+       @Html.Partial("~/Views/Shared/Home/HomeProducts/_Partial_Home_Ev_Tekstil.cshtml")
+
+        @Html.Partial("~/Views/Shared/Home/_Partial_Kurumsal_Kayit_Banner.cshtml")
+
+
+    </div>
+
+@Html.Partial("~/Views/Shared/Home/_Partial_Brands_Tab.cshtml")
+
+<script type="text/javascript">
+          var lastScrollTop = 0;
+          $("#SearchTopBlock").hide();
+          $(window).scroll(function (event) {
+              var st = $(this).scrollTop();
+              if (st < 200) {
+                  $("#SearchTopBlock").hide();
+
+              } else if (st > 200) {
+                  $("#SearchTopBlock").show();
+              }
+              lastScrollTop = st;
+          });
+</script>
+

@@ -1,0 +1,75 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    ViewBag.Title = "Destek - toptanara.com";
+    ViewBag.Description = "7/24 müşteri hizmetlerimizden destek alabilirsiniz.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@using (Html.BeginForm())
+{
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div class="">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                    <li class="active">Destek</li>
+                </ol>
+            </div>
+            <!--breadcrumb-->
+            <div class="white-box m-b-40" style="min-height:450px;">
+                @if (ViewBag.PostStatus == 1)
+                {
+                    <div class="col-md-12">
+                        <h2><i class="fa fa-ticket"></i> DESTEK TALEBİ</h2>
+                        <p>7/24 Müşteri Hizmetlerimizden Destek Alabilirsiniz.</p>
+                        <hr />
+                        <label style="font-size:13pt;" class="label label-@ViewBag.Status"> @ViewBag.Result  </label>
+                        <br /><br />
+                        <a href="~/"><strong> <i class="fa fa-angle-double-left"></i> Anasayfaya Dön </strong></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <h2><i class="fa fa-ticket"></i> DESTEK TALEBİ</h2>
+                        <p>7/24 Müşteri Hizmetlerimizden Destek Alabilirsiniz.</p>
+                        <hr />
+                        <div class="col-md-7">
+                            <label><b>Ad Soyad*</b></label>
+                            @Html.TextBoxFor(x => x.Supports.UserName, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="col-md-7">
+                            <label><b>E-Posta*</b></label>
+                            @Html.TextBoxFor(x => x.Supports.Email, new { @class = "form-control", @Type = "Email", required = "required" })
+                        </div>
+                        <div class="col-md-7">
+                            <label><b>Konu</b></label>
+                            @Html.TextBoxFor(x => x.Supports.Subject, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-7">
+                            <label><b>Talep İçeriği*</b></label>
+                            @Html.TextAreaFor(x => x.Supports.Message, new { @class = "form-control", @Rows = "5", required = "required" })
+                        </div>
+                        <div class="col-md-7">
+                            <br />
+                            @Html.HiddenFor(x => x.Supports.RegisterDate, new { @Value=DateTime.Now})
+                            @Html.HiddenFor(x => x.Supports.Departman, new { @Value = "Belirtilmedi" })
+                            @Html.HiddenFor(x => x.Supports.Process, new { @Value = "Kayıtsız Kullanıcı" })
+                            @Html.HiddenFor(x => x.Supports.UserID, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.Supports.Status, new { @Value = "1" })
+                            <button type="submit" style="background-color:#ffc926;color:#000; border-color:#ffc926;" class="btn btn-default"><i class="fa fa-send"></i> Talebi Gönder</button>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+
+            <!--breadcrumb-->
+
+        </div>
+    </div>
+}
+
+

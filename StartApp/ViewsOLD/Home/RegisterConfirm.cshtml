@@ -1,0 +1,31 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    ViewBag.Title = @StartApp.Language.Text.RegisterConfirm + " - toptanara.com";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="stpr-background-color">
+    <div class="container" style="padding-top:80px;">
+        <div class="">
+            <ol class="breadcrumb" style="font-weight:500;">
+                <li> <i class="fa fa-home"></i> <a href="~/@Request.Cookies["Language"].Value.ToLower()/kurumsal-kayit">@StartApp.Language.Text.Home</a></li>
+                <li class="active">@StartApp.Language.Text.RegisterConfirm</li>
+            </ol>
+        </div>
+        <!--breadcrumb-->
+        <div class="white-box m-b-40" style="min-height:450px;">
+                <div class="col-md-12 text-center" style="background-color:#fff; border:0px solid silver; padding:10px; text-align:left;">
+
+                    <h2>
+                        <strong><span class="fa fa-check-circle-o"></span> KAYDINIZ TAMAMLANDI!</strong>
+                    </h2>
+                    <hr />
+                    <h4 class="alert alert-success" role="alert"><span class="fa fa-send"></span> Giriş Bigileriniz Mail Adresinize Gönderildi</h4>
+                    <p>@StartApp.Language.Text.ForQuestionsAndInformation :<a href="~/@Request.Cookies["Language"].Value.ToLower()/destek"><b>@StartApp.Language.Text.Support</b></a></p>
+
+                    <div align="center"> <a class="btn btn-warning" href="~/">@StartApp.Language.Text.Home</a> </div>
+                </div>
+                </div>
+            </div>
+     </div>

@@ -1,0 +1,65 @@
+﻿@model StartApp.Models.AdminView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Müşteri Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminAffiliateCustomer/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Müşteriler</a>
+        <a href="~/AdminAffiliateCustomer/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Müşteri Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ödeme Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <table class="table table-hover">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Sipariş No</th>
+                        <th>Tarih</th>
+                        <th>Satıcı</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Payments)
+                    {
+                        <tr>
+                            <td>#SPR-@item.OrderNumber</td>
+                            <td>@item.RegisterDate</td>
+                            <td>@item.UserID - @item.UserName</td>
+                            <td>@item.Price<i class="fa fa-try"></i></td>
+                            @if (item.ConfirmID == 1)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ffd800;"></i> @item.ConfirmDetails</td>
+                            }
+                            else if (item.ConfirmID == 2)
+                            {
+                                <td><i class="fa fa-circle" style="color:#4ca528;"></i> @item.ConfirmDetails</td>
+                            }
+                            else if (item.ConfirmID == 3)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ff0000;"></i> @item.ConfirmDetails</td>
+                            }
+                            <td>
+                                @if (item.ConfirmID != 2)
+                                {
+                                    <a href="/AdminPayments/Details?OrderID=@item.OrderNumber" class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i> Detay</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        
+           </div>
+        </div>
+    </section>
+

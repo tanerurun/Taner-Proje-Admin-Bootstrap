@@ -1,0 +1,52 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Marka Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminManufacturer/ImportExcel" class="pull-right btn btn-warning"> <i class="fa fa-arrow-up"></i>  İçeri Aktar</a>
+        <a href="~/AdminManufacturer/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Markalar</a>
+        <a href="~/AdminManufacturer/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Marka Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Marka Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <h2><b>@ViewBag.CategoryName</b></h2>
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Marka</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Manufacturers)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                        <td>@item.Desciption</td>
+                        @if (item.Status == 1)
+                        {
+                            <td>Aktif</td>
+                        }
+                        else
+                        {
+                            <td>Pasif</td>
+                        }
+                        <td>
+                            <a href="~/AdminManufacturer/Update?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            <a href="~/AdminManufacturer/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

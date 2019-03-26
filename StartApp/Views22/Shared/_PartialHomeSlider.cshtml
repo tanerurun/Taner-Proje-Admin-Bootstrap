@@ -1,0 +1,42 @@
+﻿@using  StartApp.Business
+@model StartApp.Models.HomeView
+@{
+    cSliders Slider = new cSliders();
+    Model.Sliders = Slider.List();
+}
+<div class="banner">
+    <div class="full-container">
+        <div class="slider-content">
+            <ul id="pager2" class="container"></ul>
+            <!-- prev/next links -->
+
+            <span class="prevControl sliderControl"> <i class="fa fa-angle-left fa-3x "></i></span> <span class="nextControl sliderControl"><i class="fa fa-angle-right fa-3x "></i></span>
+
+            <div class="slider slider-v1"
+                 data-cycle-swipe=true
+                 data-cycle-prev=".prevControl"
+                 data-cycle-next=".nextControl" data-cycle-loader="wait">
+                 @foreach (var item in Model.Sliders)
+                 {
+                   <a href="@item.Url">
+                    <div class="slider-item slider-item-img1">
+                        <div class="sliderInfo">
+                            <div class="container">
+                                <div class="col-lg-12 col-md-12 col-sm-12 sliderTextFull ">
+                                </div>
+                            </div>
+                        </div>
+                        <img src="~/images/slider/@item.Image" class="img-responsive parallaximg sliderImg" alt="img">
+                    </div>
+                   </a>
+                 }
+                <!--/.slider-item-->
+
+
+            </div>
+            <!--/.slider slider-v1-->
+        </div>
+        <!--/.slider-content-->
+    </div>
+    <!--/.full-container-->
+</div>

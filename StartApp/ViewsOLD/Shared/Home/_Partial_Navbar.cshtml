@@ -1,0 +1,111 @@
+﻿@using StartApp.Business
+@model StartApp.Models.HomeView
+@{
+
+
+}
+
+@using (Html.BeginForm("Searching", "Home", FormMethod.Post))
+{
+<nav class="navbar navbar-default navbar-static-top m-b-0" style="box-shadow:0px 0px 10px 0px grey;">
+    <div class="navbar-header">
+        <div class="top-left-part" style="padding-left:10px;"><a class="logo center" href="~/">
+            <b><img class="img hidden-md hidden-sm" src="~/Assets/reseller/images/logo.png" alt="toptanara.com" />
+               <img class="img hidden-lg  hidden-xs" src="~/Assets/reseller/images/logo-small.png" alt="toptanara.com" />
+             </b></a></div>
+        <!-- /Logo -->
+        <!-- Search input and Toggle icon -->
+        <ul class="nav navbar-top-links navbar-left hidden-xs">
+            <!-- .Megamenu -->
+            @Html.Partial("~/Views/Shared/Home/_Partial_Top_Categories.cshtml")
+            <li id="SearchTopBlock">
+                <div class="app-search hidden-xs">
+                    <input type="text" id="txtsearch" name="txtsearch" style="font-weight:300; color:#000;" placeholder="@StartApp.Language.Text.SearchingText" class="form-control"> <button class="btn btn-warning" style="height:42px; margin:0px;" type="submit"> <i class="fa fa-search" style="color:#000;"></i> </button>
+                </div>
+            </li>
+            <!-- /.Megamenu -->
+        </ul>
+        <!-- This is the message dropdown -->
+        <ul class="nav navbar-top-links navbar-right pull-right">
+            <!-- /.dropdown -->
+            <li class="hidden-xs" style="background-color:#03a0a7;color:#ffffff; font-weight:600">
+                <a class="waves-effect waves-light" href="~/reseller/cartList"><i class="ti-shopping-cart"></i> <span class="hidden-md-down">Sepet</span> </a>
+            </li>
+            <li class="right-side-toggle hidden-lg hidden-md hidden-sm" style="background-color:#03a0a7;color:#ffffff; font-weight:600"> <a class="waves-effect waves-light" href="javascript:void(0)"><i class="ti-layout-grid4-alt"></i></a></li>
+            <li class="hidden-xs" style="background-color:#03a0a7;color:#ffffff; font-weight:600">
+                <a class="waves-effect waves-light" href="~/@Request.Cookies["Language"].Value.ToLower()/markalar"><i class="ti-eye"></i> <span class="hidden-md-down">@StartApp.Language.Text.Brands</span></a>
+            </li>
+            <li class="hidden-xs" style="background-color:#03a0a7;color:#ffffff; font-weight:600">
+                <a class="waves-effect waves-light" href="~/@Request.Cookies["Language"].Value.ToLower()/reseller/login"><i class="ti-lock"></i> <span class="hidden-md-down">@StartApp.Language.Text.Login</span></a>
+            </li>
+            <li class="hidden-xs" style="background-color:#ffc926; font-weight:600">
+                <a class="waves-effect waves-light" style="color:#000;" data-toggle="dropdown" href="javascript:void(0)"><i class="fa fa-globe"></i> 
+                 @if (Request.Cookies["Language"].Value == "tr")
+                 {
+                    <span>Türkçe</span>
+                 }
+                 else if (Request.Cookies["Language"].Value == "en")
+                 {
+                    <span>English</span>
+                 }
+                 else
+                 { <span>Türkçe</span>  }
+
+                </a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="~/Home/Change?LanguageAbbrevation=tr"><i class="fa fa-globe" style="color:#f24646;"></i> Türkçe</a></li>
+                    <div class="divider"></div>
+                    <li><a href="~/Home/Change?LanguageAbbrevation=en"><i class="fa fa-globe" style="color:#3c7698;"></i> English</a></li>
+                </ul>
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    </div>
+    <!-- /.navbar-header -->
+    <!-- /.navbar-top-links -->
+    <!-- /.navbar-static-side -->
+</nav>
+}
+<script type="text/javascript">
+
+    //Left Menu Control
+    var isClosed;
+    $(".open-close").click(function () {
+
+        if (isClosed != 1) {
+            isClosed = 1;
+            $(".top-left-part").css("display", "none");
+        } else {
+            isClosed = 0;
+            $(".top-left-part").css("display", "block");
+        }
+    });
+    //Left Menu Control
+
+    $("#txtsearch").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Home/SearchEngine",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Text, value: item.Value };
+                    }))
+
+                }
+            })
+        },
+        messages: {
+            noResults: "Ürün Bulunamadı", results: "Ürün Bulundu!"
+        }
+    });
+
+</script>
+<style>
+    #ui-id-1 {
+        padding: 10px !important;
+        position: fixed;
+    }
+</style>

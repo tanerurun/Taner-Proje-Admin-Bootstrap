@@ -1,0 +1,59 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "AdminUpdate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/Admin/AdminManage" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Yöneticiler</a>
+        <a href="~/Admin/CategoryAdd" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kategori Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Yönetici Güncelle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label>Ad</label>
+                        @Html.TextBoxFor(x => x.AdminDetails.AdminName, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Soyad</label>
+                        @Html.TextBoxFor(x => x.AdminDetails.AdminName, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>E-Mail <small>(İngilizce)</small></label>
+                        @Html.TextBoxFor(x => x.AdminDetails.Email, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Parola</label>
+                        @Html.TextBoxFor(x => x.AdminDetails.Password, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Durum</label>
+                        @Html.DropDownListFor(x => x.AdminDetails.Status, (List<SelectListItem>)ViewBag.StatusList)
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.AdminDetails.ID, new { @Value = "1" })
+                        <input type="submit" class="btn btn-primary" value="Kaydet" />
+                    </div>
+                }
+            </div>
+            @if (ViewBag.Status != null)
+            {
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,104 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = @ViewBag.SeoDescription + " Ürünleri toptanara.com'da";
+    ViewBag.Description = @ViewBag.SeoDescription + " toptan ürünleri burada! " + @ViewBag.ManufacturerName + " ürünlerini inceleyebilir ve toptan sipariş oluşturabilirsiniz.";
+    ViewBag.MetaTag = @ViewBag.ManufacturerName + "toptan," + @ViewBag.ManufacturerName + " toptan al," + @ViewBag.ManufacturerName + " ucuz" + @ViewBag.ManufacturerName + " indirim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+    string ManufacturerName = ViewBag.ManufacturerName;
+    ManufacturerName = ManufacturerName.ToUpper();
+
+}
+
+<div class="stpr-background-color">
+    <div class="container" style="padding-top:80px;">
+        <div>
+            <ol class="breadcrumb" style="font-weight:500;">
+                <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/markalar">Markalar</a></li>
+                <li><a class="active"> @ViewBag.ManufacturerName</a></li>
+            </ol>
+        </div>
+
+        <div class="row m-0">
+            <div class="col-md-12 text-center" style="background-color:#f8f8f8; border:1px solid #e8e8e8; margin-top:30px">
+                <h1><strong><span class="fa fa-eye"></span> @ManufacturerName</strong></h1>
+            </div>
+            <div class="col-md-12 text-center" style="background-color:#f5f5f5;padding:10px 10px 10px 10px; border:1px solid #e8e8e8; margin-bottom:10px;">
+                <h3>Sektör: @ViewBag.SectorTitle </h3>
+                <p style="font-size:12pt; padding-bottom:7px;">@ViewBag.ManufacturerName ürünlerini inceleyebilir ve toptan sipariş oluşturabilirsiniz.</p>
+                <span style="font-size:16pt;" class="label label-warning"><span class="fa fa-arrow-circle-down"></span> @ViewBag.Count Ürün Mevcut</span><br />
+               <br />
+                 <p style="font-size:13pt;"><a href="~/@Request.Cookies["Language"].Value.ToLower()/markalar"> <b>Diğer Markalar</b> <i class="fa fa-arrow-right"></i> </a></p>
+            </div>
+        </div>
+
+        @if (ViewBag.Count == 0)
+            {
+            <div class="white-box" style="min-height:300px;padding-top:50px;" align="center">
+                <h4><i class="fa fa-warning"></i><b>Şu anda Toptan Satışa Açık Ürünü Bulunamadı.</b><br /><i> Daha Sonra Tekrar Ziyaret Ediniz.</i></h4>
+
+            </div>
+            <br />
+            <h2 align="center"><b><i class="fa fa-chevron-circle-down"></i> Diğer Markaların Ürünleri</b></h2>
+            <h3 align="center">Yüzlerce markanın binlerce toptan ürünlerine erişin</h3>
+            <hr />
+        }
+        <div class="clearfix"></div>
+       
+        <!-- /.row -->
+        <div class="row m-0">
+            @foreach (var item in Model.ManufacturersProducts)
+            {
+                decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+                <a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-0 p-0">
+                        <div class="stpr-product-block">
+                            <div class="stpr-product-img">
+                                <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                            </div>
+                            <div class="stpr-product-title">
+                                <h2 class="stpr-title-limit"  style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a> </h2>
+                                <small class="text-muted db"> @item.ManufacturerName @item.StockCode</small>
+                            </div>
+                            
+                            <div class="stpr-product-description m-b-15">
+                                <h3> <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h3>
+                                @if (item.Quantity < 3)
+                                {
+                                    <div class="input-group">
+                                        <div class="alert alert-danger" style="background-color:#d43333; padding:7px;" role="alert"><i class="fa fa-warning"></i> <b>Satışa Kapalı</b></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-default">
+                                        Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ManufacturersProducts, Page => Url.Action("BrandProducts", new RouteValueDictionary {
+            { "Page", Page },
+            {"BrandID", ViewBag.ManufacturerID},
+            }))
+        </div>
+        <b>Toplam Ürün: @ViewBag.Count</b>
+    </div>
+    <div class="clearfix"></div>
+    <br /><br />
+
+    @Html.Partial("~/Views/Shared/Home/_Partial_Brands_Tab.cshtml")
+</div>
+<!-- /.container-fluid -->
+
+

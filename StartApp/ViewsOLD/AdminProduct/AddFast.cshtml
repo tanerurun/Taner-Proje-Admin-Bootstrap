@@ -1,0 +1,129 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Ürün Ekle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    <div class="form-group">
+                        <label><b>Stok Kodu</b></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.StockCode, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label><b>Ürün Adı</b></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.Title, new { @class = "form-control", required = "required" })
+                    </div>
+                      <div class="form-group">
+                            <label><b>Detay</b></label>
+                            @Html.TextBox("ckeditor",null, new { @class = "form-control"})
+                        </div>
+                        <div class="form-group">
+                            <label><b>Alış Fiyat </b></label>
+                            @Html.TextBoxFor(x => x.ProductDetails.CostPrice, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Kar Oranı(%) </b></label>
+                            @Html.TextBoxFor(x => x.ProductDetails.Percentage, new { @class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Kapak Fotoğraf</b></label>
+                            @Html.TextBox("file", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Fotoğraf 2</b></label>
+                            @Html.TextBox("file2", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Fotoğraf 3</b></label>
+                            @Html.TextBox("file3", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Fotoğraf 4</b></label>
+                            @Html.TextBox("file4", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Fotoğraf 5</b></label>
+                            @Html.TextBox("file5", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Fotoğraf 6</b></label>
+                            @Html.TextBox("file6", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(x => x.ProductDetails.Status, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.CategoryTitle, new { @Value = "Belirtilmedi" })
+                            @Html.HiddenFor(x => x.ProductDetails.CategoryID, new { @Value = "00" })
+                            @Html.HiddenFor(x => x.ProductDetails.ManufacturerID, new { @Value = "4341" })
+                            @Html.HiddenFor(x => x.ProductDetails.ManufacturerName, new { @Value = "Toptanara Export" })
+                            @Html.HiddenFor(x => x.ProductDetails.AffPercentage, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.AffSeller, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.Barkod, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.BoxQuantity, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.CargoPrice, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.Description, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.DescriptionEng, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.DetailsEng, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.Discount, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.ListNumber, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.MinOrder, new { @Value = "1" })
+                            @Html.HiddenFor(x => x.ProductDetails.Price, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.Quantity, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.SeoDescription, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.SeoKeywords, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.SeoUrl, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.Special, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.SupplierID, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.SupplierName, new { @Value = "0" })
+                            @Html.HiddenFor(x => x.ProductDetails.TitleEng, new { @Value = "0" })
+                            <input type="submit" class="btn btn-primary" value="Kaydet" />
+                        </div>
+                }
+            </div>
+        </div>
+        @if (ViewBag.Status != null)
+            {
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script type="text/javascript">
+
+   // CKEDITOR.replace('ckeditor');
+
+    jQuery("#ManufactureItem").change(function () {
+        var ManufaDetails = jQuery("#ManufactureItem option:selected").val();
+        var manufaArray = ManufaDetails.split("-");
+        var manufaID = manufaArray[0];
+        var manufaName = manufaArray[1];
+        if (manufaName != "" && manufaID != "") {
+            jQuery("#ProductDetails_ManufacturerID").val(manufaID);
+            jQuery("#ProductDetails_ManufacturerName").val(manufaName);
+        }
+
+    });
+
+    jQuery("#CategoryItem").change(function () {
+        var ctryDetails = jQuery("#CategoryItem option:selected").val();
+        var ctrArray = ctryDetails.split("-");
+        var ctrID = ctrArray[0];
+        var ctrName = ctrArray[1];
+        if (ctrID != "" && ctrName != "") {
+            jQuery("#ProductDetails_CategoryTitle").val(ctrName);
+            jQuery("#ProductDetails_CategoryID").val(ctrID);
+        }
+      //  alert(ctrName);
+    });
+
+
+</script>

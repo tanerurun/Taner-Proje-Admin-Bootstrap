@@ -1,0 +1,38 @@
+﻿@using StartApp.Business
+@model StartApp.Models.HomeView
+  @{
+      cCategories Category = new cCategories();
+      Model.Categories = Category.List();
+
+      HttpCookie cookie = HttpContext.Current.Request.Cookies["Language"];
+      string LangCode = cookie.Value.ToString();
+   }
+<div class="col-lg-3 col-md-3 col-sm-12 hidden-xs hidden-sm">
+    <div class="panel-group" id="accordionNo">
+        <!--Category-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapseCategory"
+                       class="collapseWill active ">
+                        <span class="pull-left"> <i class="fa fa-caret-right"></i></span> @StartApp.Language.Text.Categories
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseCategory" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked tree">
+                        @foreach (var item in Model.Categories)
+                        {
+                        <li><a href="~/Home/Categories?ID=@item.ID"> <i class="fa fa-caret-right"></i> 
+                            @if (LangCode == "en") {  @item.NameEng } else {  @item.Name  } </a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/Category menu end-->
+        
+    </div>
+</div>

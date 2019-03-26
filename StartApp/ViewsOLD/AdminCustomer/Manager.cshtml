@@ -1,0 +1,63 @@
+﻿@model StartApp.Models.AdminView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Müşteri Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminCustomer/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Müşteriler</a>
+        <a href="~/AdminCustomer/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Müşteri Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Müşteri Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <table class="table table-hover nowrap" style="width:100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>No</th>
+                        <th>Firma</th>
+                        <th>Yetkili</th>
+                        <th>Telefon</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CustomersPaging)
+                    {
+                        <tr>
+                            <td>@item.CustomerCode</td>
+                            <td>@item.CompanyTitle</td>
+                            <td>@item.Name @item.Surname</td>
+                            <td>@item.Phone</td>
+                            @if (item.Status == 1)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>Pasif</td>
+                            }
+                            <td>
+                                <a href="~/AdminCustomer/Update?ID=@item.ID" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                <a href="~/AdminCustomer/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.CustomersPaging, Page => Url.Action("Manager", new RouteValueDictionary {
+                { "Page", Page}
+             }))
+        </div>
+        <b>Toplam Satıcı: @ViewBag.Count</b>
+    </div>
+</section>

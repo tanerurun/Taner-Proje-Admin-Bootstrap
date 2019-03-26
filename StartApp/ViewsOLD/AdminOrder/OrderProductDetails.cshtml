@@ -1,0 +1,75 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "OrderProductDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sipariş Bilgileri</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @using (Html.BeginForm())
+                {
+
+                    <div class="form-group">
+                        <label>Sipariş No</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.OrderNumber, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Kodu</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.StockCode, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.Title, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Adet</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.Quantity, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Fiyat</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.Price, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Müşteri Açıklama </label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.UserDescription, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama Ekle</label>
+                        @Html.TextBoxFor(x => x.OrderProductDetails.AdminDescription, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Onay Durumu</label>
+                        @Html.DropDownListFor(x => x.OrderProductDetails.Confirm, (List<SelectListItem>)ViewBag.ConfirmList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.OrderProductDetails.Status)
+                        @Html.HiddenFor(x => x.OrderProductDetails.ID)
+                        @Html.HiddenFor(x => x.OrderProductDetails.BoxQuantity)
+                        @Html.HiddenFor(x => x.OrderProductDetails.Image)
+                        @Html.HiddenFor(x => x.OrderProductDetails.ProductID)
+                        <input type="submit" class="btn btn-primary" value="Kaydet" />
+                        <a href="~/AdminOrder/OrderProductDetails?ID=@Model.OrderProductDetails.ID&DelID=@Model.OrderProductDetails.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="btn btn-danger"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                    </div>
+                }
+            </div>
+            @if (ViewBag.Status != null)
+            {
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,11 @@
+﻿@model StartApp.Models.HomeView
+
+@using (Html.BeginForm("Searching", "Home", null, FormMethod.Post))
+{
+ <a class="pull-right search-close" style="color:white;" > <i class=" fa fa-times-circle"> </i> </a>
+    <div class="searchInputBox pull-right">
+        <input type="search" data-searchurl="search?=" name="searchtext" placeholder="@StartApp.Language.Text.SearchForProducts"
+               class="search-input">
+        <button class="btn-nobg search-btn" type="submit"><i class="fa fa-search"> </i></button>
+    </div>
+}

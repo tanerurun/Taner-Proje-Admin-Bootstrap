@@ -1,0 +1,96 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Makale Ekle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<SelectListItem> StatusOption = new List<SelectListItem>();
+    StatusOption.Add(new SelectListItem { Text = "Aktif", Value = "1" });
+    StatusOption.Add(new SelectListItem { Text = "Pasif", Value = "0" });
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminBlog/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Makaleler</a>
+        <a href="~/AdminBlog/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Makale Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Makale Ekle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    <div class="form-group">
+                        <label><b>Başlık</b></label>
+                        @Html.TextBoxFor(x => x.BlogDetails.Title, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label><b>Kısa Açıklama</b></label>
+                        @Html.TextBoxFor(x => x.BlogDetails.Description, new { @class = "form-control"})
+                    </div>
+
+                    <div class="form-group">
+                        <label><b> Kategori </b></label>
+                        <select class="form-control" id="CategoryItem" required>
+                            <option></option>
+                            @foreach (var item in Model.BlogCategories)
+                            {
+                                <option value="@item.ID-@item.Name"> @item.MainCategoryName > @item.Name </option>
+                            }
+                        </select>
+                    </div>
+                        <div class="form-group">
+                            <label><b>Detay</b></label>
+                            @Html.TextArea("ckeditor")
+                        </div>
+                        <div class="form-group">
+                            <label><b>Kapak Fotoğraf</b></label>
+                            @Html.TextBox("file", "", new { type = "file" })
+                        </div>
+                        <div class="form-group">
+                            <label><b>Etiketler</b></label>
+                            @Html.TextBoxFor(x => x.BlogDetails.Tags, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(x => x.BlogDetails.Status, new { @Value = "1" })
+                            @Html.HiddenFor(x => x.BlogDetails.RegisterDate, new { @Value = DateTime.Now })
+                            @Html.HiddenFor(x => x.BlogDetails.CategeryID)
+                            @Html.HiddenFor(x => x.BlogDetails.CategoryName)
+
+                            <input type="submit" class="btn btn-primary" value="Kaydet" />
+                        </div>
+                }
+            </div>
+        </div>
+        @if (ViewBag.Status != null)
+            {
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script type="text/javascript">
+
+    CKEDITOR.replace('ckeditor');
+
+    jQuery("#CategoryItem").change(function () {
+        var ctryDetails = jQuery("#CategoryItem option:selected").val();
+        var ctrArray = ctryDetails.split("-");
+        var ctrID = ctrArray[0];
+        var ctrName = ctrArray[1];
+        if (ctrID != "" && ctrName != "") {
+            jQuery("#BlogDetails_CategoryName").val(ctrName);
+            jQuery("#BlogDetails_CategeryID").val(ctrID);
+        }
+      //  alert(ctrName);
+    });
+
+
+</script>
+

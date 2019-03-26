@@ -1,0 +1,172 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    ViewBag.Title = @ViewBag.BrandName  + " " + @ViewBag.ProductTitle +" " + Model.ProductDetails.StockCode +" - toptanara.com'da";
+    ViewBag.Description = @ViewBag.BrandName + " " + @ViewBag.ProductTitle +" " + Model.ProductDetails.StockCode + " toptan ürünler burada. " + @ViewBag.ProductTitle + " binlerce ürüne erişin.";
+    ViewBag.Keywords = @ViewBag.ProductTitle + "toptan," + @ViewBag.ProductTitle + " toptan al," + @ViewBag.ProductTitle + " ucuz" + @ViewBag.ProductTitle + " indirim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    cSeo Seo = new cSeo();
+}
+
+@using (Html.BeginForm())
+{
+
+    decimal Amount = Convert.ToDecimal(Model.ProductDetails.CostPrice + (Model.ProductDetails.CostPrice * Model.ProductDetails.Percentage / 100));
+
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div>
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">@StartApp.Language.Text.Home</a></li>
+                    <li><a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(Model.ProductDetails.CategoryTitle)-@Model.ProductDetails.CategoryID">@Model.ProductDetails.CategoryTitle</a></li>
+                    <li class="active">@Model.ProductDetails.Title</li>
+                </ol>
+            </div>
+                <!--breadcrumb-->
+                <div class="white-box">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span class='zoom' id='MainImageZoom'>
+                                <img class="img-fluid" id="MainImage" src="https://www.toptanara.com/Assets/Products/@Model.ProductDetails.MainImage" />
+                             </span>
+                                <div class="col-md-12 m-0 p-0 m-t-10">
+                                    <div class="stpr-product-details-thumblr">
+                                        <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.MainImage" />
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(Model.ProductDetails.Image1))
+                                    {
+                                        <div class="stpr-product-details-thumblr">
+                                            <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image1" />
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(Model.ProductDetails.Image2))
+                                    {
+                                        <div class="stpr-product-details-thumblr">
+                                            <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image2" />
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(Model.ProductDetails.Image3))
+                                    {
+                                        <div class="stpr-product-details-thumblr">
+                                            <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image3" />
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(Model.ProductDetails.Image4))
+                                    {
+                                        <div class="stpr-product-details-thumblr">
+                                            <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image4" />
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(Model.ProductDetails.Image5))
+                                    {
+                                        <div class="stpr-product-details-thumblr">
+                                            <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image5" />
+                                        </div>
+                                    }
+
+                                </div>
+</div>
+                        <div class="col-md-7">
+                            <h2 class="font-size-18">@Model.ProductDetails.Title</h2>
+                            <p>@Model.ProductDetails.Description</p>
+                            <hr />
+                            <b>@StartApp.Language.Text.Brand :</b> @Model.ProductDetails.ManufacturerName
+                            <hr />
+                            <b>@StartApp.Language.Text.ProductCode :</b> @Model.ProductDetails.StockCode
+                            <hr />
+                            <b>@StartApp.Language.Text.PiecesInBox</b> @Model.ProductDetails.BoxQuantity 
+                            <hr />
+                            <b>@StartApp.Language.Text.MinimumOrder :</b> @Model.ProductDetails.MinOrder 
+                            <hr />
+                            @if (Model.ProductDetails.Quantity < 3)
+                            {
+                                <div class="input-group">
+                                    <div class="alert alert-danger" width="250" style="background-color:#d43333; padding:7px;" role="alert"><i class="fa fa-warning"></i> <b>Ürün Satışa Kapalıdır.</b></div>
+                                </div>
+                                <hr />
+                            }
+                            
+                            <h2>Adet Fiyat: <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h2>
+                           <hr />
+                                <p class="text-center" style="font-weight:500; background-color:#f5f5f5; padding:5px; font-size:13PT;">
+                                    <span class="fa fa-eye"></span> @ViewBag.BrandName markasına ait
+                                    <a href="~/@Request.Cookies["Language"].Value.ToLower()/markalar/@Seo.CreateUrl(Model.ProductDetails.ManufacturerName)/@Model.ProductDetails.ManufacturerID" style="text-decoration:underline;color:#000"> @ViewBag.BrandCount </a> @StartApp.Language.Text.TherePproduct
+                                </p>
+                                <hr />
+                                <div class="col-md-6 p-l-0 m-b-10">
+                                    <a href="~/@Request.Cookies["Language"].Value.ToLower()/Reseller/Login" class="btn  btn-warning pull-left btn-block"><i class="fa fa-shopping-cart"></i> @StartApp.Language.Text.LoginForPrices</a>
+
+                                </div>
+                                <div class="col-md-6 p-l-0 m-b-10">
+                                    <a href="~/@Request.Cookies["Language"].Value.ToLower()/markalar/@Seo.CreateUrl(Model.ProductDetails.ManufacturerName)/@Model.ProductDetails.ManufacturerID" style="background-color:#01c0c8;border-color:#01c0c8;" class="btn btn-primary pull-right btn-block"><span class="fa fa-eye"></span> @StartApp.Language.Text.GotoBrandPage </a>
+                                </div>
+</div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h3 class="box-title m-t-40">@StartApp.Language.Text.ProductFeatures</h3>
+                            @Html.Raw(Model.ProductDetails.Details)
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!--breadcrumb-->
+
+            @Html.Partial("~/Views/Shared/Home/_Partial_Similar_Products.cshtml")
+            <div style="padding:10px 7px 10px 7px;">
+                @Html.Partial("~/Views/Shared/Home/_Partial_Kurumsal_Kayit_Banner.cshtml")
+            </div>
+            <br />
+
+            </div>
+        </div>
+}
+<style>
+    /* styles unrelated to zoom */
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    /* these styles are for the demo, but are not required for the plugin */
+    .zoom {
+        display: inline-block;
+        position: relative;
+    }
+
+        /* magnifying glass icon */
+        .zoom:after {
+            content: '';
+            display: block;
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: url(icon.png);
+        }
+
+        .zoom img {
+            display: block;
+        }
+
+            .zoom img::selection {
+                background-color: transparent;
+            }
+</style>
+<script>
+    jQuery('.pro-details-thumblr').click(function () {
+        var CurretImg = jQuery(this).attr('src');
+        jQuery('#MainImage').attr('src', CurretImg);
+    })
+
+    jQuery(document).ready(function () {
+        jQuery('#MainImageZoom').zoom();
+        jQuery('#MainImageZoom').css('cursor', 'move');
+    });
+</script>

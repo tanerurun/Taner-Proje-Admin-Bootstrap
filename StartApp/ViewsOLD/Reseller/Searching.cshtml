@@ -1,0 +1,79 @@
+﻿@model StartApp.Models.ResellerView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Arama - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+
+<div id="page-wrapper" style="min-height: 577px;">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Arama</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Reseller">Panel</a></li>
+                    <li class="active">Arama</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            @foreach (var item in Model.ProductsPaging)
+            {
+                decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="~/Reseller/Details?ID=@item.ID">
+                        <div class="stpr-product-block">
+                            <div class="stpr-product-img">
+                                <img src="~/Assets/Products/@item.MainImage" class="img-responsive">
+                            </div>
+                            <div class="product-text">
+                                @if (item.Discount > 0)
+                            {
+                            <span class="label label-warning" style="font-size:11pt!important"><b> %@Convert.ToInt32(item.Discount) İskontolu</b></span>
+                            }
+                                <h2 class="stpr-title-limit" style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="~/Reseller/Details?ID=@item.ID">@item.Title </a> </h2>
+                                <small class="text-muted db">@item.ManufacturerName @item.StockCode</small>
+                            </div>
+                            <div class="product-text">
+                                <h4>Birim Fiyat: <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i> </strong></h4>
+                                @if (item.Quantity < 3)
+                                {
+                                    <div class="input-group">
+                                        <div class="alert alert-danger" style="background-color:#d43333; padding:7px;" role="alert"><i class="fa fa-warning"></i> <b>Satışa Kapalı</b></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-default">
+                                        Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if (ViewBag.Count == 0)
+            {
+                <div class="white-box" style="width:100%">
+                        <h4 class="text-center"><i class="fa fa-warning"></i> <strong>@ViewBag.SerchingText</strong> arama kriterinize uygun ürün bulunamadı!</h4>
+                </div>
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Searching", new RouteValueDictionary { { "txtsearch", ViewBag.SerchingText }, { "Page", Page } }))
+        </div>
+        <b>Bulunan Ürün: @ViewBag.Count</b>
+    </div>
+
+</div><br /><br />
+<!-- /.container-fluid -->
+@Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+
+

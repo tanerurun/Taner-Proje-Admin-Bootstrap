@@ -1,0 +1,45 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "ResellerManage";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sepet Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Satıcı Kodu</th>
+                    <th>Satıcı</th>
+                    <th>Adet</th>
+                    <th>Tutar</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartCustomers)
+                {
+                    <tr>
+                        <td>@item.CartID</td>
+                        <td>@item.CustomerCode</td>
+                        <td>@item.CustomerCompanyName</td>
+                        <td>@item.ProductQuantity</td>
+                        <td>@item.ProductPrice</td>
+                        <td>
+                            <a href="#" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            <a href="#" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

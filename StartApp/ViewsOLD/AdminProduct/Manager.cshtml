@@ -1,0 +1,126 @@
+﻿@model StartApp.Models.AdminView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Ürün Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminProduct/ImportPrice" class="pull-right btn btn-primary"> <i class="fa fa-arrow-up"></i> Fiyat İçeri Aktar</a>
+        <a href="~/AdminProduct/ImportExcel" class="pull-right btn btn-warning"> <i class="fa fa-arrow-up"></i>  İçeri Aktar</a>
+        <a href="~/AdminProduct/ImportAffExcel" class="pull-right btn btn-warning"> <i class="fa fa-arrow-up"></i> Aff İçeri Aktar</a>
+        <a href="~/AdminProduct/Manager?Page=1&ProductSearching=@ViewBag.ProductSearching&CategorySearch=@ViewBag.CategorySearch&ManufectureSearch=@ViewBag.ManufectureSearch&ProductStatus=@ViewBag.ProductStatus&Export=1" class="pull-right btn btn-warning"> <i class="fa fa-arrow-down"></i>  Dışa Aktar</a>
+        <a href="~/AdminProduct/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Ürünler</a>
+        <a href="~/AdminProduct/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Ürün Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ürün Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+@using (Html.BeginForm("Manager", "AdminProduct", FormMethod.Post))
+{
+    <div class="row" style="background-color:#514d6a;color:#ffffff;border:2px solid silver; padding-top:15px;">
+        <div class="col-md-4">
+            <div class="form-group">  
+             <input type="text" class="form-control" name="ProductSearching" placeholder="Ürün adı, kodu.." />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+            <select class="form-control" name="CategorySearch" required>
+                <option value="0">--Kategori Seç--</option>
+                <option value="0">Tümünü Listele</option>
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.ID"> @item.MainCategoryName > @item.Name </option>
+                    }
+            </select>
+         </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <select class="form-control" name="ManufectureSearch" required>
+                    <option value="0">--Üretici--</option>
+                    <option value="0">Tümünü Listele</option>
+                    @foreach (var item in Model.Manufacturers)
+                {
+                        <option value="@item.ID"> @item.Name </option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+            <select class="form-control" name="ProductStatus" required>
+                <option value="3">--Durum Seç--</option>
+                <option value="3">Tümünü Listele</option>
+                <option value="1">Aktif</option>
+                <option value="0">Pasif</option>
+            </select>
+        </div>
+       </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-large">Ara</button>
+             </div>
+        </div>
+     </div>
+}
+        <div class="row">
+            <table class="table table-hover nowrap" style="width:100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Stok Kodu</th>
+                        <th>Ürün</th>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Üretici</th>
+                        <th>A.Fiyat</th>
+                        <th>Kar</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductsPaging)
+                {
+                        <tr>
+                            <td>@item.StockCode</td>
+                            <td> <img style="max-width:75px" src="~/Assets/Products/@item.MainImage" /></td>
+                            <td>@item.Title</td>
+                            <td>@item.CategoryTitle</td>
+                            <td>@item.ManufacturerName</td>
+                            <td>@item.CostPrice TL</td>
+                            <td>%@item.Percentage</td>
+                            @if (item.Status == 1)
+                        {
+                                <td>Aktif</td>
+                        }
+                        else
+                        {
+                                <td>Pasif</td>
+                        }
+                            <td>
+                                <a href="~/AdminProduct/Update?ProductID=@item.ID" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                <a href="~/AdminProduct/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                            </td>
+                        </tr>
+                }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Manager", new RouteValueDictionary {
+                { "Page", Page},
+                { "ProductSearching", ViewBag.ProductSearching },
+                { "CategorySearch", ViewBag.CategorySearch },
+                { "ManufectureSearch", ViewBag.ManufectureSearch },
+                { "ProductStatus", ViewBag.ProductStatus }
+             }))
+        </div>
+        <b>Toplam Ürün: @ViewBag.Count</b>
+    </div>
+</section>

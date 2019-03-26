@@ -1,0 +1,132 @@
+﻿@model StartApp.Models.BrandView
+@{
+    ViewBag.Title = "ResellerManage";
+    Layout = "~/Views/Shared/_LayoutBrand.cshtml";
+
+    List<SelectListItem> StatusOption = new List<SelectListItem>();
+    StatusOption.Add(new SelectListItem { Text = "Aktif", Value = "1" });
+    StatusOption.Add(new SelectListItem { Text = "Pasif", Value = "0" });
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminProduct/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Ürünler</a>
+        <a href="~/AdminProduct/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Ürün Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ürün Güncelle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-12 xs-col-12">
+                    <div class="form-group">
+                        <label><b>Ürün Kodu</b></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.StockCode, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Ürün Adı</b></label>
+                            @Html.TextBoxFor(x => x.ProductDetails.Title, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><b>Kategori > @Model.ProductDetails.CategoryTitle </b></label>
+                        <select class="form-control" id="CategoryItem">
+                            <option></option>
+                            @foreach (var item in Model.Categories)
+                            {
+                                <option value="@item.ID-@item.Name"> @item.MainCategoryName > @item.Name </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Üretici > @Model.ProductDetails.ManufacturerName </b></label>
+                        <select class="form-control" id="ManufactureItem">
+                            <option></option>
+                            @foreach (var item in Model.Manufacturers)
+                            {
+                                <option value="@item.ID-@item.Name"> @item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Koli İçi</b></label>
+                            @Html.TextBoxFor(x => x.ProductDetails.BoxQuantity, new { @class = "form-control", type = "number", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Minimum Sipariş </b></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.MinOrder, new { @class = "form-control", type = "number", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label><b>Toptan Fiyat </b></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.CostPrice, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Ürün Açıklaması</b></label>
+                            @Html.TextAreaFor(x => x.ProductDetails.Description, new { @class = "form-control", Rows = "3" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Detaylar</b></label>
+                            @Html.TextArea("ckeditor")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.ProductDetails.ID)
+                        @Html.HiddenFor(x => x.ProductDetails.MainImage)
+                        @Html.HiddenFor(x => x.ProductDetails.CategoryTitle)
+                        @Html.HiddenFor(x => x.ProductDetails.CategoryID)
+                        @Html.HiddenFor(x => x.ProductDetails.Details)
+                        @Html.HiddenFor(x => x.ProductDetails.ManufacturerID)
+                        @Html.HiddenFor(x => x.ProductDetails.ManufacturerName)
+                        @Html.HiddenFor(x => x.ProductDetails.SeoUrl)
+                        <button type="submit" class="btn btn-primary"> KAYDET </button>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script type="text/javascript">
+
+    var ProductDetails = jQuery("#ProductDetails_Details").val();
+    CKEDITOR.replace('ckeditor').setData(ProductDetails);
+
+    jQuery("#ManufactureItem").change(function () {
+        var ManufaDetails = jQuery("#ManufactureItem option:selected").val();
+        var manufaArray = ManufaDetails.split("-");
+        var manufaID = manufaArray[0];
+        var manufaName = manufaArray[1];
+        if (manufaName != "" && manufaID != "") {
+            jQuery("#ProductDetails_ManufacturerID").val(manufaID);
+            jQuery("#ProductDetails_ManufacturerName").val(manufaName);
+        }
+
+    });
+
+    jQuery("#CategoryItem").change(function () {
+        var ctryDetails = jQuery("#CategoryItem option:selected").val();
+        var ctrArray = ctryDetails.split("-");
+        var ctrID = ctrArray[0];
+        var ctrName = ctrArray[1];
+        if (ctrID != "" && ctrName != "") {
+            jQuery("#ProductDetails_CategoryTitle").val(ctrName);
+            jQuery("#ProductDetails_CategoryID").val(ctrID);
+        }
+        //  alert(ctrName);
+    });
+
+
+</script>

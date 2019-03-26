@@ -1,0 +1,44 @@
+﻿@model StartApp.Models.ResellerView
+@using StartApp.Business
+@{ 
+    cCategories Category = new cCategories();
+    Model.Categories = Category.List().Where(x=>x.MainCategoryID == 0).ToList();
+    Model.Categories = Model.Categories.OrderBy(x => x.Name).ToList();
+
+    cCart Cartlit = new cCart();
+    cLogin Login = new cLogin();
+    Model.CartToProducts = Cartlit.List(Login.ResellerDetails().ResellerID).ToList();
+    decimal TotalPrice = Model.CartToProducts.Sum(x => x.CartAmount);
+}
+
+<div class="right-sidebar">
+    <div class="slimscrollright">
+        <div class="rpanel-title" style="background-color:#333"> <strong>MENÜ</strong> <span><i style="color:#fff" class="ti-close right-side-toggle"></i></span> </div>
+        <div class="r-panel-body">
+            <strong>Hesap</strong>
+
+            <ul class="stpr-mobile-menu">
+                <li> <a class="waves-effect waves-light" style="font-weight:600; color:#ff6a00;" href="~/Reseller/CartList"><i class="ti-shopping-cart"></i> <span>SEPET ( @TotalPrice.ToString("0.00")<i class="fa fa-try"></i>)</span></a></li>
+                <li><a href="~/Reseller/Orders"  class="waves-effect waves-light"><i class="fa fa-list"></i> <span class="hide-menu">Siparişler </span>
+                </a></li>
+                <li>
+                    <a href="~/Reseller/Payments" class="waves-effect waves-light">
+                        <i class="fa fa-credit-card"></i> <span class="hide-menu">Ödemeler </span>
+                    </a>
+                </li>
+                 <li><strong> <a class="waves-effect waves-light" href="~/Reseller/SearchingPage"><i class="ti-search"></i> <span> Arama </span></a></strong></li>
+                <li><strong>  <a class="waves-effect waves-light" href="~/Reseller/SupportList"><i class="ti-email"></i> <span> Destek </span></a> </strong></li>
+            </ul> <br />
+            <strong>Kategoriler</strong>
+            <ul class="stpr-mobile-menu">
+                <li> <a href="~/Reseller/NewProducts"><i class="fa fa-star"></i> Yeni Ürünler</a></li>
+                <li> <a href="~/Reseller/NewProducts?Sort=OneList"><i class="fa fa-dot-circle-o"></i> 1 Adet Satılan</a></li>
+                @foreach (var item in Model.Categories)
+                {
+                <li> <a href="~/Reseller/Category?ID=@item.ID"><i class="fa fa-caret-right"></i> @item.Name</a></li>
+                }
+                <li> <a href="~/Reseller/CategoryList"><i class="fa fa-caret-right"></i> Tüm Kategoriler</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

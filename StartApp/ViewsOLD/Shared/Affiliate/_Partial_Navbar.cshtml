@@ -1,0 +1,75 @@
+﻿@using StartApp.Business
+@model StartApp.Models.AffiliateView
+
+<nav class="navbar navbar-default navbar-static-top m-b-0">
+    <div class="navbar-header">
+        <div class="top-left-part" style="padding-left:20px;"><a class="logo center" href="~/Affiliate/"><b><img class="img" src="../Assets/reseller/images/logo.png" alt="toptanara.com" /></b></a></div>
+        <!-- /Logo -->
+        <!-- Search input and Toggle icon -->
+        <ul class="nav navbar-top-links navbar-left hidden-xs" >
+            <li ><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light "><i class="icon-arrow-left-circle ti-menu font-bold"></i></a></li>
+           @Html.Partial("~/Views/Shared/Affiliate/_Partial_Top_Categories.cshtml")
+        <!-- /.Megamenu -->
+        <li>
+            <form role="search" action="~/Affiliate/Searching" class="app-search hidden-xs">
+                <input type="text" id="txtsearch" name="txtsearch" style="font-weight:300; color:#000;" placeholder="Ürün, marka, stok kodu, kategori.." class="form-control"> <button class="btn btn-warning" style="min-height:41px;" type="submit"> <i class="fa fa-search" style="color:#000;"></i> </button>
+            </form>
+        </li>
+         </ul>
+        <!-- This is the message dropdown -->
+        <ul class="nav navbar-top-links navbar-right pull-right">
+            <!-- /.dropdown -->
+            <li class="right-side-toggle hidden-lg hidden-md hidden-sm" style="background-color:#03a0a7;color:#ffffff; font-weight:600"> <a class="waves-effect waves-light" href="javascript:void(0)"><i class="ti-layout-grid4-alt"></i></a></li>
+            <li class="hidden-xs" style="background-color:#03a0a7;color:#ffffff; font-weight:600"> <a class="waves-effect waves-light" href="~/Affiliate/SupportList"><i class="ti-email"></i> <span class="hidden-md-down"> Destek </span></a></li>
+            <!-- /.dropdown -->
+        </ul>
+    </div>
+    <!-- /.navbar-header -->
+    <!-- /.navbar-top-links -->
+    <!-- /.navbar-static-side -->
+</nav>
+<script type="text/javascript">
+
+    //Left Menu Control
+    var isClosed;
+    $(".open-close").click(function (){
+
+        if (isClosed != 1) {
+            isClosed = 1;
+            $(".top-left-part").css("display", "none");
+        } else {
+            isClosed = 0;
+            $(".top-left-part").css("display", "block");
+        }
+    });
+    //Left Menu Control
+
+
+    $("#txtsearch").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Affiliate/SearchEngine",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Text, value: item.Value };
+                    }))
+
+                }
+            })
+        },
+        messages: {
+            noResults: "Ürün Bulunamadı", results: "Ürün Bulundu!"
+        }
+    });
+
+</script>
+<style>
+    #ui-id-1 {
+        padding: 10px !important;
+        position: fixed;
+    }
+</style>
+

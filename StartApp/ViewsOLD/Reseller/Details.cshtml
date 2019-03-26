@@ -1,0 +1,206 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Ürün Bilgileri";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+    decimal Amount =  Convert.ToDecimal(Model.ProductDetails.Price);
+}
+@using (Html.BeginForm())
+{
+<div id="page-wrapper" style="min-height: 577px;">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Ürün Bilgileri</h4>
+            </div>
+            <div class="col-md-9">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Panel</a></li>
+                    <li><a href="/Reseller/Category?ID=@Model.ProductDetails.CategoryID">@Model.ProductDetails.CategoryTitle</a></li>
+                    <li class="active">@Model.ProductDetails.Title</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-3 col-sm-6">
+                                <div class="white-box text-center">
+                                    <span class='zoom' id='MainImageZoom'>
+                                        <img class="img-fluid" id="MainImage" src="https://www.toptanara.com/Assets/Products/@Model.ProductDetails.MainImage" />
+                                     </span> 
+                                         <div class="col-md-12 m-0 p-0 m-t-10">
+                                            <div class="stpr-product-details-thumblr">
+                                                <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.MainImage" />
+                                            </div>
+                                            @if (!string.IsNullOrEmpty(Model.ProductDetails.Image1))
+                                            {
+                                                <div class="stpr-product-details-thumblr">
+                                                    <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image1" />
+                                                </div>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(Model.ProductDetails.Image2))
+                                            {
+                                                <div class="stpr-product-details-thumblr">
+                                                    <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image2" />
+                                                </div>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(Model.ProductDetails.Image3))
+                                            {
+                                                <div class="stpr-product-details-thumblr">
+                                                    <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image3" />
+                                                </div>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(Model.ProductDetails.Image4))
+                                            {
+                                                <div class="stpr-product-details-thumblr">
+                                                    <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image4" />
+                                                </div>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(Model.ProductDetails.Image5))
+                                            {
+                                                <div class="stpr-product-details-thumblr">
+                                                    <img class="img-fluid pro-details-thumblr" src="~/Assets/Products/@Model.ProductDetails.Image5" />
+                                                </div>
+                                            }
+
+                                        </div>
+</div>
+                            </div>
+                            <div class="col-lg-6 col-md-9 col-sm-6">
+                                <h2 class=" font-size-18 m-t-40">@Model.ProductDetails.Title</h2>
+                                <p>@Model.ProductDetails.Description</p>
+                                @if (Model.ProductDetails.Discount > 0)
+                                {
+                                    <span class="label label-warning" style="font-size:11pt!important"><b> %@Convert.ToInt32(Model.ProductDetails.Discount) İskontolu</b></span>
+                                }
+                                <hr />
+                                <p><i> Marka: @Model.ProductDetails.ManufacturerName</i></p>
+                                <hr />
+                                <p><i> Stok Kodu: @Model.ProductDetails.StockCode</i></p>
+                                <hr />
+                                <p>
+                                    <b>Koli İçi Adet:</b> @Model.ProductDetails.BoxQuantity <br />
+                                </p>
+                                <hr />
+                                <h2>Birim Fiyat: <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h2>
+                                @if (Model.ProductDetails.Quantity < 3)
+                                {
+                                    <div class="input-group">
+                                        <div class="alert alert-danger" width="250" style="background-color:#d43333; padding:7px;" role="alert"><i class="fa fa-warning"></i> <b>Ürün Satışa Kapalıdır.</b></div>
+                                    </div>
+                                }
+                                else //Eğer ürün mevcutsa
+                                {
+                                    <div style="width:250px;">
+                                        <div class="input-group"> <span class="input-group-addon">Adet</span> @Html.TextBoxFor(x => x.CartDetails.Quantity, new { @class = "form-control", @type = "number", @placeholder = "adet giriniz..", required = "required", @min = @ViewBag.MinOrder }) </div>
+                                         <p style="font-size:11pt;color:red;"> <b>Minimum Sipariş: @ViewBag.MinOrder</b></p>
+                                    </div>
+                                    <br />
+                                    <div class="input-group"> <span class="input-group-addon">Sipariş Notu</span> @Html.TextAreaFor(x => x.CartDetails.Description, new { @class = "form-control", @placeholder = "Bu ürün siparişine not ekleyebilirsiniz.." }) </div>
+                                    <br />
+
+                                    <div class="input-group">
+                                        <button type="submit" style="color:#000;" class="btn btn-warning m-t-20">
+                                            <i  class="ti-shopping-cart"></i>
+                                            Sepete Ekle
+                                        </button>
+                                    </div>
+                                        if (ViewBag.CartStatus == 1)
+                                        {<br />
+                                            <div class="input-group">
+                                                <div class="alert alert-success" width="250" role="alert"><i class="fa fa-check-circle"></i> Sepete Eklendi</div>
+                                            </div>
+                                        }
+                                   }
+
+                                    @Html.HiddenFor(x => x.CartDetails.Confirm, new { @Value = "1" })
+                                    @Html.HiddenFor(x => x.CartDetails.ProductID, new { @Value = ViewBag.ProductID })
+                                    @Html.HiddenFor(x => x.CartDetails.RegisterDate, new { @Value = DateTime.Now })
+                                    @Html.HiddenFor(x => x.CartDetails.Status, new { @Value = "1" })
+                                    @Html.HiddenFor(x => x.CartDetails.UserID, new { @Value = ViewBag.ResellerID })
+                                </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h3 class="box-title m-t-40">Ürün Detayları</h3>
+                                 @Html.Raw(Model.ProductDetails.Details)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Similar_Products.cshtml")
+        <div class="clearfix"></div>
+        <!--row -->
+    </div>
+    <!-- /.container-fluid -->
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+}
+<style>
+    /* styles unrelated to zoom */
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    /* these styles are for the demo, but are not required for the plugin */
+    .zoom {
+        display: inline-block;
+        position: relative;
+    }
+
+        /* magnifying glass icon */
+        .zoom:after {
+            content: '';
+            display: block;
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: url(icon.png);
+        }
+
+        .zoom img {
+            display: block;
+        }
+
+            .zoom img::selection {
+                background-color: transparent;
+            }
+</style>
+<script type="text/javascript">
+    $("input[name='CartDetails.Quantity']").focusout(function () {
+        var quantity = $("input[name='CartDetails.Quantity']").val();
+        var minquantity = @ViewBag.MinOrder;
+        if(quantity < minquantity)
+        {
+            quantity = minquantity;
+            alert('*Minimum '+minquantity+" ekleyin!");
+            $("input[name='CartDetails.Quantity']").val(minquantity)
+        }
+    });
+
+
+    jQuery('.pro-details-thumblr').click(function () {
+        var CurretImg = jQuery(this).attr('src');
+        jQuery('#MainImage').attr('src', CurretImg);
+    })
+
+    jQuery(document).ready(function () {
+        jQuery('#MainImageZoom').zoom();
+        jQuery('#MainImageZoom').css('cursor','move');
+    });
+
+</script>

@@ -1,0 +1,46 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    ViewBag.Title = Model.PageDetails.Title + " - toptanara.com";
+    ViewBag.Description = Model.PageDetails.SeoDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+}
+
+@using (Html.BeginForm())
+{
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div class="">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                    <li> <a href="#">İşlem Rehberi</a></li>
+                    <li class="active">@Model.PageDetails.Title</li>
+                </ol>
+            </div>
+            <!--breadcrumb-->
+            <div class="white-box m-b-40" style="min-height:450px;">
+                <div class="col-md-3">
+                    <h3><b><i class=" fa fa-gear"></i> Bilgilerimiz</b></h3>
+                    <ul class="nav nav-second-level collapse in" aria-expanded="true">
+                        @foreach (var item in Model.Pages)
+                        {
+                            <li><a href="~/@Request.Cookies["Language"].Value.ToLower()/bilgilerimiz/@Seo.CreateUrl(item.Title)-@item.ID"><i class="ti-angle-double-right"></i> @item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <h2>@Model.PageDetails.Title</h2>
+                    <hr />
+                    <p>@Html.Raw(Model.PageDetails.Details)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!--breadcrumb-->
+
+        </div>
+    </div>
+}
+
+

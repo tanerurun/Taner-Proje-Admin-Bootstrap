@@ -1,0 +1,135 @@
+﻿@model StartApp.Models.AffiliateView
+@{
+    ViewBag.Title = "Sipariş Oluştur";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+    decimal totalPrice =  Convert.ToDecimal(Model.AffOrderProductDetails.Price) * Convert.ToInt32(Model.AffOrderProductDetails.Quantity);
+}
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper" style="min-height: 577px;">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Sipariş Bilgileri</h4>
+                </div>
+                <div class="col-md-9">
+                    <ol class="breadcrumb" style="font-weight:500;">
+                        <li> <i class="fa fa-home"></i> <a href="~/">Panel</a></li>
+                        <li> <a href="~/Affiliate/Orders">Siparişler</a></li>
+                        <li class="active">Sipariş</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+
+                        <div class="panel-wrapper collapse in" aria-expanded="true">
+                            <div class="panel-body">
+                                <form action="#">
+                                    <div class="form-body">
+                                        <h3 class="box-title">Ürün Bilgileri</h3>
+                                        <hr>
+                                        <div class="row" style="font-weight:500">
+                                            <div class="col-md-2">
+                                                <img src="http://www.toptanara.com/Assets/Products/@Model.AffOrderProductDetails.Image" class="img-responsive" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h3>@Model.AffOrderProductDetails.Title</h3>
+                                                <p>@Model.AffOrderProductDetails.Description</p>
+                                            </div>
+                                            <div class="col-md-4" style="background-color:#face4c; color:#000000;  border:2px solid #000;border-radius:8px;padding:10px;">
+                                                <p> Birim Fiyat: @Model.AffOrderProductDetails.Price<i class="fa fa-try"></i> </p>
+                                                <p> @Model.AffOrderProductDetails.Quantity Adet </p>
+                                                <h2><b> Toplam: @totalPrice<i class="fa fa-try"></i> </b></h2>
+                                                <i style="color:#870202;">*KDV + Kargo Bedeli Dahildir.</i>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        @if(Model.AffOrderDetails.Confirm == 1)
+                                        {
+                                          <h2>Durum: <span style="color:#ffc926;"  ><i class="fa fa-dot-circle-o" ></i><b> Onay Bekliyor </b> </span></h2>                                         
+                                        } else if (Model.AffOrderDetails.Confirm == 2)
+                                        {
+                                            <h2>Durum: <span style="color:#ff0000;"><i class="fa fa-dot-circle-o"></i><b> Hazırlanıyor </b> </span></h2>
+                                        }
+                                        else if (Model.AffOrderDetails.Confirm == 3)
+                                        {
+                                            <h2>Durum: <span style="color:#01c0c8;"><i class="fa fa-dot-circle-o"></i><b> Gönderildi </b> </span></h2>
+                                        }
+                                        else if (Model.AffOrderDetails.Confirm == 4)
+                                        {
+                                            <h2>Durum: <span style="color:#30aa40;"><i class="fa fa-dot-circle-o"></i><b> Teslim Edildi </b> </span></h2>
+                                        }
+                                        <h3 class="box-title">Teslimat Bilgileri</h3>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Ad Soyad :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.CustomerName) @Html.DisplayFor(x => x.AffOrderDetails.CustomerSurname)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">TC No :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.TC)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Telefon :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.Phone)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Şehir :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.City)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Adres :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.Address)
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Sipariş Notunuz :</label>
+                                                    @Html.DisplayFor(x => x.AffOrderDetails.Note)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Status)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Confirm)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.ConfirmDetails)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Invoce)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.PaymentStatus)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.PaymetStatusID)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Country)
+                                        @Html.HiddenFor(x => x.AffOrderDetails.RegisterDate)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.AdminDescription)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Confirm)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Image)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Price)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.ProductID)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Quantity)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Status)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.StockCode)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Title)
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.UserDescription)
+                                        
+                                         @if (Model.AffOrderDetails.PaymetStatusID == 1)
+                                         {
+                                            <p style="font-weight:500"><i class="fa fa-warning"></i> Ödeme yapılmadığı için siparişiniz beklemede</p>
+                                            <a href="~/Affiliate/BankWire?OrderID=@Model.AffOrderDetails.ID" type="submit" class="btn btn-warning" style="color:#000;"> <i class="fa fa-check"></i> Ödeme Yap</a>
+
+                                         }
+                                        <a href="~/Affiliate/Orders" style="color:#000000;" class="btn btn-default">Geri dön</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

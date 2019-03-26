@@ -1,0 +1,20 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Satıcı Paneli - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Dashboard.cshtml")
+
+
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_New_Products_Tab.cshtml")
+       
+       @Html.Partial("~/Views/Shared/Reseller/_Partial_Category_Tabs.cshtml")
+
+    </div>
+    <!-- /.container-fluid -->
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+

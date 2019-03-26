@@ -1,0 +1,131 @@
+﻿@model StartApp.Models.AffiliateView
+@{
+    ViewBag.Title = "Sipariş Oluştur";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+    decimal Amount =  Convert.ToDecimal(ViewBag.Amount);
+    decimal TotalAmount = Convert.ToDecimal(ViewBag.TotalAmount);
+
+}
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper" style="min-height: 577px;">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Sipariş Bilgileri</h4>
+                </div>
+                <div class="col-md-9">
+                    <ol class="breadcrumb" style="font-weight:500;">
+                        <li> <i class="fa fa-home"></i> <a href="~/">Panel</a></li>
+                        <li> <a href="~/Affiliate/Products">Ürünler</a></li>
+                        <li class="active">Sipariş Oluştur</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+
+                        <div class="panel-wrapper collapse in" aria-expanded="true">
+                            <div class="panel-body">
+                                <form action="#">
+                                    <div class="form-body">
+                                        <h3 class="box-title">Ürün Bilgileri</h3>
+                                        <hr>
+                                        <div class="row" style="font-weight:500">
+                                            <div class="col-md-2">
+                                                <img src="http://www.toptanara.com/Assets/Products/@Model.ProductDetails.MainImage" class="img-responsive" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h3>@Model.ProductDetails.Title</h3>
+                                                <p>@Model.ProductDetails.Description</p>
+                                            </div>
+                                            <div class="col-md-4" style="background-color:#face4c; color:#000000;  border:2px solid #000;border-radius:8px;padding:10px;" >
+                                                <p> Birim Fiyat: @Amount.ToString("0.00")<i class="fa fa-try"></i> </p>
+                                                <p> @ViewBag.Quantity Adet </p>
+                                                <h2><b> Toplam: @TotalAmount.ToString("0.00")<i class="fa fa-try"></i> </b></h2>
+                                                <i style="color:#870202;" >*KDV + Kargo Bedeli Dahildir.</i>
+                                            </div>
+                                         </div>
+                                        <hr />
+                                           <h3 class="box-title">Teslimat Bilgileri</h3>
+                                           <p>Teslim alacak müşteri bilgilerini yazınız.</p>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Ad</label>
+                                                            @Html.TextBoxFor(x=>x.AffOrderDetails.CustomerName, new { @class="form-control", required = "required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Soyad</label>
+                                                            @Html.TextBoxFor(x => x.AffOrderDetails.CustomerSurname, new { @class = "form-control", required = "required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Telefon</label>
+                                                            @Html.TextBoxFor(x => x.AffOrderDetails.Phone, new { @class = "form-control", required = "required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">TC <small> (Zorunlu Değil) </small></label>
+                                                            @Html.TextBoxFor(x => x.AffOrderDetails.TC, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Şehir</label>
+                                                            @Html.TextBoxFor(x => x.AffOrderDetails.City, new { @class = "form-control", required = "required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Adres</label>
+                                                            @Html.TextAreaFor(x => x.AffOrderDetails.Address, new { @class = "form-control", required = "required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Sipariş Notunuz</label>
+                                                            @Html.TextAreaFor(x => x.AffOrderDetails.Note, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <div class="form-actions">
+                                        @Html.HiddenFor(x=>x.AffOrderDetails.Status, new { @Value="1" })
+                                        @Html.HiddenFor(x=>x.AffOrderDetails.Confirm, new { @Value = "1" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.ConfirmDetails, new { @Value = "Onay Bekliyor" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Invoce, new { @Value = "1" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.PaymentStatus, new { @Value = "Ödeme Bekliyor" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.PaymetStatusID, new { @Value = "1" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.Country, new { @Value = "Türkiye" })
+                                        @Html.HiddenFor(x => x.AffOrderDetails.RegisterDate, new { @Value = DateTime.Now.ToString() })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.AdminDescription, new { @Value = "Belirtilmedi" })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Confirm, new { @Value = "1" })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Image, new { @Value = @Model.ProductDetails.MainImage})
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Price, new { @Value = @ViewBag.TotalAmount})
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.ProductID, new { @Value = @Model.ProductDetails.ID })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Quantity, new { @Value = @ViewBag.Quantity})
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Status, new { @Value = @Model.ProductDetails.Status })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.StockCode, new { @Value = @Model.ProductDetails.StockCode })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Title, new { @Value = @Model.ProductDetails.Title })
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.UserDescription, new { @Value = "Belirtilmedi"})
+                                        @Html.HiddenFor(x => x.AffOrderProductDetails.Description, new { @Value = @Model.ProductDetails.Description })
+                                        <button type="submit" class="btn btn-warning" style="color:#000;"> <i class="fa fa-check"></i> Siparişi Tamamla</button>
+                                        <a href="~/Affiliate/Products" style="color:#000000;" class="btn btn-default">İptal</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

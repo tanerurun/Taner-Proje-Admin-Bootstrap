@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="zuccaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminDemo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" />
+          <Property Name="AdminSurname" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductsDemo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockCode" Type="varchar" MaxLength="50" />
+          <Property Name="Barkod" Type="varchar" MaxLength="50" />
+          <Property Name="SeoUrl" Type="varchar" MaxLength="50" />
+          <Property Name="SeoDescription" Type="varchar" MaxLength="50" />
+          <Property Name="SeoKeywords" Type="varchar" MaxLength="50" />
+          <Property Name="CategoryTitle" Type="varchar" MaxLength="50" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+          <Property Name="BoxQuantity" Type="int" />
+          <Property Name="MainImage" Type="varchar" MaxLength="500" />
+          <Property Name="CostPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="text" />
+          <Property Name="DescriptionEng" Type="text" />
+          <Property Name="DetailsEng" Type="text" />
+          <Property Name="Details" Type="text" />
+          <Property Name="Special" Type="int" />
+          <Property Name="ListNumber" Type="int" />
+          <Property Name="ManufacturerName" Type="varchar" MaxLength="50" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="SupplierName" Type="varchar" MaxLength="50" />
+          <Property Name="MinOrder" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Image1" Type="varchar" MaxLength="300" />
+          <Property Name="Image2" Type="varchar" MaxLength="300" />
+          <Property Name="Image3" Type="varchar" MaxLength="300" />
+          <Property Name="Image4" Type="varchar" MaxLength="300" />
+          <Property Name="Image5" Type="varchar" MaxLength="300" />
+          <Property Name="CargoPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AffPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AffSeller" Type="int" />
+          <Property Name="WebService" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityContainer Name="zuccaDBModelStoreContainer">
+          <EntitySet Name="AdminDemo" EntityType="Self.AdminDemo" Schema="PamidoreUser" store:Type="Tables" />
+          <EntitySet Name="ProductsDemo" EntityType="Self.ProductsDemo" Schema="PamidoreUser" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zuccaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="startAppDBsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminDemo" EntityType="zuccaDBModel.AdminDemo" />
+          <EntitySet Name="ProductsDemo" EntityType="zuccaDBModel.ProductsDemo" />
+        </EntityContainer>
+        <EntityType Name="AdminDemo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductsDemo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Barkod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SeoUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SeoDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SeoKeywords" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TitleEng" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BoxQuantity" Type="Int32" />
+          <Property Name="MainImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CostPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DescriptionEng" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DetailsEng" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Special" Type="Int32" />
+          <Property Name="ListNumber" Type="Int32" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinOrder" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Image1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Image2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Image3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Image4" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Image5" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CargoPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AffPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AffSeller" Type="Int32" />
+          <Property Name="WebService" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="zuccaDBModelStoreContainer" CdmEntityContainer="startAppDBsEntities">
+          <EntitySetMapping Name="AdminDemo">
+            <EntityTypeMapping TypeName="zuccaDBModel.AdminDemo">
+              <MappingFragment StoreEntitySet="AdminDemo">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AdminSurname" ColumnName="AdminSurname" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsDemo">
+            <EntityTypeMapping TypeName="zuccaDBModel.ProductsDemo">
+              <MappingFragment StoreEntitySet="ProductsDemo">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="WebService" ColumnName="WebService" />
+                <ScalarProperty Name="AffSeller" ColumnName="AffSeller" />
+                <ScalarProperty Name="AffPercentage" ColumnName="AffPercentage" />
+                <ScalarProperty Name="CargoPrice" ColumnName="CargoPrice" />
+                <ScalarProperty Name="Image5" ColumnName="Image5" />
+                <ScalarProperty Name="Image4" ColumnName="Image4" />
+                <ScalarProperty Name="Image3" ColumnName="Image3" />
+                <ScalarProperty Name="Image2" ColumnName="Image2" />
+                <ScalarProperty Name="Image1" ColumnName="Image1" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MinOrder" ColumnName="MinOrder" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ListNumber" ColumnName="ListNumber" />
+                <ScalarProperty Name="Special" ColumnName="Special" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DetailsEng" ColumnName="DetailsEng" />
+                <ScalarProperty Name="DescriptionEng" ColumnName="DescriptionEng" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+                <ScalarProperty Name="MainImage" ColumnName="MainImage" />
+                <ScalarProperty Name="BoxQuantity" ColumnName="BoxQuantity" />
+                <ScalarProperty Name="TitleEng" ColumnName="TitleEng" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryTitle" ColumnName="CategoryTitle" />
+                <ScalarProperty Name="SeoKeywords" ColumnName="SeoKeywords" />
+                <ScalarProperty Name="SeoDescription" ColumnName="SeoDescription" />
+                <ScalarProperty Name="SeoUrl" ColumnName="SeoUrl" />
+                <ScalarProperty Name="Barkod" ColumnName="Barkod" />
+                <ScalarProperty Name="StockCode" ColumnName="StockCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

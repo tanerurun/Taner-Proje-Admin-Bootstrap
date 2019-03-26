@@ -1,0 +1,43 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    cProducts pList = new cProducts();
+    cSeo Seo = new cSeo();
+    /* Dekorasyon List */
+    List<StartApp.Models.Products> DekorasyonList = pList.ListForCategoriy(49);
+    DekorasyonList = DekorasyonList.Where(x => x.Status == 1).OrderByDescending(x=>x.ID).Take(5).ToList();
+    /* Dekorasyon List */
+
+}
+
+<!--Dekorasyon List -->
+<div class="row">
+    <div class="col-lg-12">
+       <h4> <span class="fa fa-list"></span> <strong> Kahve Fincanları </strong> </h4>
+        <div class="col-md-2 col-sm-6 col-xs-12 m-0 p-0 stpr-home-product-fincan-cover">
+            <a href="#" class="btn btn-warning stpr-home-product-cover-btn">Tümünü Listele</a>
+        </div>
+            @foreach (var item in DekorasyonList)
+            {
+                <a href="/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                    <div class="col-md-2 col-sm-6 col-xs-12 m-0 p-0 stpr-home-products">
+                        <div class="stpr-home-product-block">
+                            <div class="stpr-product-img">
+                                <img src="http://www.toptanara.com/Assets/Products/@item.MainImage" class="img-responsive" />
+                            </div>
+                            <div class="stpr-home-product-title">
+                                <span class="label label-warning"><b><span class="fa fa-star"></span> İskontolu</b></span>
+                                <h2 style="font-size:10pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a> </h2>
+                                <small class="text-muted db"> @item.ManufacturerName - @item.StockCode</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    
+</div>
+
+<!--Dekorasyon List -->
+
+

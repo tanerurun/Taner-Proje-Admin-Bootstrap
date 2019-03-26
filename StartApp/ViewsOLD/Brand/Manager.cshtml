@@ -1,0 +1,70 @@
+﻿@model StartApp.Models.BrandView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Ürün Yönetimi";
+    Layout = "~/Views/Shared/_LayoutBrand.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/Brand/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Ürünler</a>
+        <a href="~/Brand/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Ürün Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ürün Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <table class="table table-hover nowrap" style="width:100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Stok Kodu</th>
+                        <th>Ürün</th>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Marka</th>
+                        <th>Toptan Fiyat</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductsPaging)
+                    {
+                        <tr>
+                            <td>@item.StockCode</td>
+                            <td> <img style="max-width:75px" src="~/Assets/Products/@item.MainImage" /></td>
+                            <td>@item.Title</td>
+                            <td>@item.CategoryTitle</td>
+                            <td>@item.ManufacturerName</td>
+                            <td>@item.CostPrice TL</td>
+                            @if (item.Status == 1)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>Pasif</td>
+                            }
+                            <td>
+                                <a href="~/Brand/Update?ProductID=@item.ID" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Manager", new RouteValueDictionary {
+                { "Page", Page},
+                { "ProductSearching", ViewBag.ProductSearching },
+                { "CategorySearch", ViewBag.CategorySearch },
+                { "ManufectureSearch", ViewBag.ManufectureSearch },
+                { "ProductStatus", ViewBag.ProductStatus }
+             }))
+        </div>
+        <b>Toplam Ürün: @ViewBag.Count</b>
+    </div>
+</section>

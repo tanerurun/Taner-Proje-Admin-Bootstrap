@@ -1,0 +1,85 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Offers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+}
+
+<div class="stpr-background-color">
+    <div class="container" style="padding-top:80px;">
+        <div class="">
+            <ol class="breadcrumb" style="font-weight:500;">
+                <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                <li class="active">Teklif</li>
+            </ol>
+        </div>
+        <!--breadcrumb-->
+        <div class="white-box m-b-40">
+            <div class="col-md-12">
+                <h2 align="center"> <strong>FİYAT TEKLİF</strong></h2>
+                <hr />
+                <div class="col-md-6">
+                    <h4><strong> @Model.OfferDetails.Company </strong></h4>
+                    <p><i class="fa fa-map-o"></i> @Model.OfferDetails.Address, @Model.OfferDetails.Country, @Model.OfferDetails.City @Model.OfferDetails.Phone</p>
+                    <h2 style="color:#ff6a00;"><strong>İSKONTO: %@Model.OfferDetails.Discount</strong></h2>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right"><strong><i class="fa fa-clock-o"></i> Geçerlilik Süresi</strong></p>
+                    <p class="text-right">Başlangıç :@Model.OfferDetails.RegisterDate</p>
+                    <p class=" pull-right">Bitiş: @Model.OfferDetails.FinishDate</p>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!--breadcrumb-->
+
+        <div class="clearfix"></div>
+
+        <!-- /.row -->
+        <div class="row m-0">
+            @foreach (var item in Model.ProductsPaging)
+            {
+                <a href="/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-0 p-0">
+                        <div class="stpr-product-block">
+                            <div class="stpr-product-img">
+                                <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                            </div>
+                            <div class="stpr-product-title">
+                                @if (item.Discount > 0)
+                                {
+                                    <span class="label label-warning" style="font-size:11pt!important"><b> %@Convert.ToInt32(item.Discount) İskontolu</b></span>
+                                }
+                                <span class="label label-warning"><b><span class="fa fa-star"></span> İskontolu</b></span>
+                                <h2 style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a> </h2>
+                                <small class="text-muted db">İzleme Kodu: @item.ID </small>
+                            </div>
+                            <div class="stpr-product-description m-b-15">
+                                <h4>Birim Fiyat: <b>@item.Price<i class="fa fa-try"></i></b></h4>
+                                <button type="button" class="btn btn-default">
+                                    Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Offers", new RouteValueDictionary {
+            { "Page", Page },
+            { "ID", ViewBag.ID }
+            }))
+        </div>
+        <b>Toplam Ürün: @ViewBag.Count</b>
+    </div>
+    <div class="clearfix"></div>
+    <br /><br />
+</div>
+

@@ -1,0 +1,47 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    cProducts pList = new cProducts();
+    cSeo Seo = new cSeo();
+    /* Dekorasyon List */
+    List<StartApp.Models.Products> BanyoGerecleriiList = pList.ListForCategoriy(5022);
+    BanyoGerecleriiList = BanyoGerecleriiList.Where(x => x.Status == 1 && x.Special == 1).OrderByDescending(x => x.ID).Take(6).ToList();
+    /* Dekorasyon List */
+
+}
+
+<!--Dekorasyon List -->
+<div class="row m-b-20">
+    <div class="col-md-12">
+        <h4 class="pull-left"><strong> Banyo Gereçleri </strong></h4>
+        <a href="~/@Request.Cookies["Language"].Value.ToLower()/category/koselikler-5022" class="btn btn-warning pull-right">Tümü <span class="fa fa-angle-double-right"></span></a>
+    </div>
+    @foreach (var item in BanyoGerecleriiList)
+            {
+                decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+
+        <a href="/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 m-0 p-0">
+                <div class="stpr-home-products m-0 p-0">
+                    <div class="stpr-home-product-block">
+                        <div class="">
+                            <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                        </div>
+                        <div class="stpr-home-product-title">
+                            <h2 style="font-size:10pt; font-weight:500; line-height:20px;" class="box-title m-b-0 stpr-title-limit">
+                               <a href="/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a>
+                            </h2>
+                            <small class="text-muted db"> Ürün Kodu: @item.StockCode</small>
+                            <h3> <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+
+
+</div>
+
+<!--Dekorasyon List -->
+

@@ -1,0 +1,81 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Sepet - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+    int cCount = Model.CartToProducts.Count();
+    decimal TotalAmount = Model.CartToProducts.Sum(x => x.CartAmount);
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Sepet</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Reseller">Panel</a></li>
+                    <li class="active">Sepet</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    <h4><i class="fa fa-shopping-cart"></i> Sepetenize eklenen ürünler</h4>
+                    <div class="table-responsive m-b-40" style="clear: both;">
+                        <table class="table table-hover">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Fotoğraf</th>
+                                    <th>Ürün</th>
+                                    <th>Adet</th>
+                                    <th>Fiyat</th>
+                                    <th>Tutar</th>
+                                    <th>İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CartToProducts)
+                                {
+                                    <tr>
+                                        <td>@item.ProductID</td>
+                                        <td><img src="~/Assets/Products/@item.ProductImage" width="40" /></td>
+                                        <td><a target="_blank" href="/Reseller/Details?ID=@item.ProductID"> @item.ProductTitle</a><br />Koli İçi: @item.ProductBoxQuantity 
+                                        
+                                        </td>
+                                        <td>@item.CartQuantity</td>
+                                        <td>@item.ProductPrice.ToString("0.00")<i class="fa fa-try"></i> </td>
+                                        <td>@item.CartAmount.ToString("0.00")<i class="fa fa-try"></i></td>
+                                        <td>
+                                            <a href="~/Reseller/CartList?CartID=@item.CartID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Listeden Çıkar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        @if (cCount != 0)
+                        {
+                            <div class="col-md-12">
+                                <h4 class="pull-right font-500">Toplam Tutar: @TotalAmount.ToString("0.00") <i class="fa fa-try"></i></h4>
+                            </div>
+                                <div class="col-md-12">
+                                    <a href="/Reseller/CartList?OrderCreate=1" class="btn btn-primary pull-right"> <i class="fa fa-file-text"></i> Sipariş Oluştur</a>
+                                </div>
+                        } else
+                        {
+                            <h3 align="center">Sepetiniz Boş (0)</h3>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

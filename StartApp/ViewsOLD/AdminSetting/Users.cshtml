@@ -1,0 +1,76 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Kullanıcılar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminSetting/Users" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Kullanıcılar</a>
+        <a href="~/AdminSetting/UserAdd" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kullanıcı Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ayarlar</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="nav-tabs-horizontal">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" href="/AdminSetting/Company" role="tab" aria-expanded="true">
+                        <i class="fa fa-building-o"></i>
+                        Firma Bilgileri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/AdminSetting/Site" role="tab" aria-expanded="false">
+                        <i class="fa fa-info-circle"></i> Site Tercihleri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="~/AdminSetting/Users" role="tab" aria-expanded="false">
+                        <i class="icmn-user"></i> Kullanıcılar
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home2" role="tabcard" aria-expanded="true">
+                    <table class="table table-hover nowrap" id="example1" width="100%">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>No</th>
+                                <th>Ad Soyad</th>
+                                <th>E-Mail</th>
+                                <th>Durum</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Admins)
+                            {
+
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.AdminName @item.AdminSurname</td>
+                                    <td>@item.Email</td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <td>Aktif</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Pasif</td>
+                                    }
+                                    <td>
+                                        <a href="~/AdminSetting/UserDetails?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                        <a href="~/AdminSetting/Users?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

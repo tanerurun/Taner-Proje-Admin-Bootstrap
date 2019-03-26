@@ -1,0 +1,55 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "N11 Kategori Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminMarket/ProductExport" class="pull-right btn btn-danger"> <i class="fa fa-list"></i> Ürün Aktar</a>
+        <a href="~/AdminMarket/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Kategoriler</a>
+        <a href="~/AdminMarket/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kategori Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> N11 Kategori Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Ana Kategori</th>
+                    <th>Kategori</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.N11Categories)
+                {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.MainCategoryTitle</td>
+                            <td>@item.CategoryTitle</td>
+                            @if (item.Status == 1)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>Pasif</td>
+                            }
+                            <td>
+                                <a href="~/AdminMarket/Manager?SelectID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-stack"><!-- --></i> Göster</a>
+                                <a href="~/AdminMarket/Update?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                <a href="~/AdminMarket/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+       </div>
+    </div>
+</section>
+

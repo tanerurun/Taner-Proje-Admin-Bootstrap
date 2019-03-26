@@ -1,0 +1,35 @@
+﻿@model StartApp.Models.ResellerView
+@using StartApp.Business
+@{
+    cProducts pEvGerecleriList = new cProducts();
+    List<StartApp.Models.Products> evGerecleriList = new List<StartApp.Models.Products>();
+    evGerecleriList = pEvGerecleriList.List().Where(x =>
+    (x.CategoryID == 55)).ToList();
+    Model.Products = Model.Products.OrderByDescending(x => x.ID).ToList();
+    Model.Products = Model.Products.Where(x => x.Status == 1).Take(12).ToList();
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading font-size-16">
+                <a href="#" style="color:#000000;"><i class="fa fa-list"></i> BAMBU ÜRÜNLER </a>
+            </div>
+            <div class="panel-wrapper p-b-10 collapse in">
+                <div id="owl-demo2" class="owl-carousel owl-theme">
+                    @foreach (var evGerecitem in evGerecleriList)
+                    {
+                        <a href="~/Reseller/Details?ID=@evGerecitem.ID">
+                            <div class="item">
+                                <img src="~/Assets/Products/@evGerecitem.MainImage" alt="~/Reseller/Details?ID=@evGerecitem.Title">
+                                <p style="color:#000000; font-weight:500; text-align:center">@evGerecitem.Title </p>
+                                <h4 align="center"><strong> @evGerecitem.Price<i class="fa fa-try"></i> </strong> </h4>
+
+                            </div>
+
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

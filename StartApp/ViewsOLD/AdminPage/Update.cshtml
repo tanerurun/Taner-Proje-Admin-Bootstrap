@@ -1,0 +1,89 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Sayfa Güncelle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminPage/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Sayafalar</a>
+        <a href="~/AdminPage/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Sayfa Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sayfa Güncelle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label>Sayfa Başlığı</label>
+                        @Html.TextBoxFor(x => x.PageDetails.Title, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label><b>Kategori > @Model.PageDetails.CategoryName </b></label>
+                        <select class="form-control" id="CategoryItem">
+                            <option></option>
+                            @foreach (var item in Model.PageCategories)
+                            {
+                                <option value="@item.ID-@item.Name"> @item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>İçerik</label>
+                        @Html.TextArea("ckeditor")
+                    </div>
+                    <div class="form-group">
+                        <label>SEO Açıklama</label>
+                        @Html.TextBoxFor(x => x.PageDetails.SeoDescription, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>SEO Anahtar Kelime</label>
+                        @Html.TextBoxFor(x => x.PageDetails.SeoKeyword, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Durum</label>
+                        @Html.DropDownListFor(x => x.PageDetails.Status, (List<SelectListItem>)ViewBag.StatusList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.PageDetails.ID)
+                        @Html.HiddenFor(x => x.PageDetails.Details)
+                        @Html.HiddenFor(x => x.PageDetails.CategoryID)
+                        @Html.HiddenFor(x => x.PageDetails.CategoryName)
+                        <input type="submit" class="btn btn-primary" value="Kaydet" />
+                    </div>
+                }
+            </div>
+        </div>
+        @if (ViewBag.Status != null)
+            {
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script type="text/javascript">
+    
+    var PageDetails = jQuery("#PageDetails_Details").val();
+    CKEDITOR.replace('ckeditor').setData(PageDetails);
+
+    jQuery("#CategoryItem").change(function () {
+        var ctryDetails = jQuery("#CategoryItem option:selected").val();
+        var ctrArray = ctryDetails.split("-");
+        var ctrID = ctrArray[0];
+        var ctrName = ctrArray[1];
+        if (ctrID != "" && ctrName != "") {
+            jQuery("#PageDetails_CategoryName").val(ctrName);
+            jQuery("#PageDetails_CategoryID").val(ctrID);
+        }
+    });
+
+
+</script>

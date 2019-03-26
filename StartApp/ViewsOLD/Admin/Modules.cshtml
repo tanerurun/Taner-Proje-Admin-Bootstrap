@@ -1,0 +1,60 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Site Ayarları</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="nav-tabs-horizontal">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Setting" role="tab" aria-expanded="true">
+                        <i class="fa fa-building-o"></i>
+                        Firma Bilgileri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Admin/SiteInfo" role="tab" aria-expanded="false">
+                        <i class="fa fa-info-circle"></i> Site Bilgileri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="~/Admin/Modules" role="tab" aria-expanded="false">
+                        <i class="icmn-box-add"></i> Modüller
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <table class="table table-hover nowrap" id="example1" width="100%">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>No</th>
+                            <th>Adı</th>
+                            <th>Açıklama</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Modules)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>
+                                    <a href="@item.URL" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-eye"><!-- --></i> Göster</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

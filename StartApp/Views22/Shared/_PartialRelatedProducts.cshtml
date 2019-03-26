@@ -1,0 +1,27 @@
+﻿@model StartApp.Models.HomeView
+@{
+    HttpCookie cookie = HttpContext.Current.Request.Cookies["Language"];
+    string LangCode = cookie.Value.ToString();
+}
+<div class="row recommended">
+    <h1> @StartApp.Language.Text.RelatedProducts </h1>
+
+    <div id="SimilarProductSlider">
+        @foreach (var item in Model.RelatedProducts)
+        {
+        <div class="item">
+            <div class="product">
+                <a href="~/Home/ProductDetails?ID=@item.ID" class="product-image"> <img src="~/Assets/products/@item.MainImage" alt="img"> </a>
+
+                <div class="description">
+                    <h4><a href="~/Home/ProductDetails?ID=@item.ID">
+                        @if (LangCode == "en"){  @item.TitleEng } else  { @item.Title } </a></h4>
+                        <p> @if (LangCode == "en") {  @item.DescriptionEng } else { @item.Description } </p>                    
+                </div>
+            </div>
+        </div>
+        }
+        <!--/.item-->
+    </div>
+    <!--/.SimilarProductSlider-->
+</div>

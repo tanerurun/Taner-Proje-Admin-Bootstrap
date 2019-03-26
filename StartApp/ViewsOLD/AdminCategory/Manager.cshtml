@@ -1,0 +1,76 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Kategori Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminCategory/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Kategoriler</a>
+        <a href="~/AdminCategory/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kategori Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Kategori Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <h2><b>@ViewBag.CategoryName</b></h2>
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Kategori Adı</th>
+                    <th>Ana Kategori</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Categories)
+                {
+                    if (item.MainCategoryID == 0)
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td>@item.MainCategoryName</td>
+                            @if (item.Status == 1)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>Pasif</td>
+                            }
+                            <td>
+                                <a href="~/AdminCategory/Manager?SelectID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-stack"><!-- --></i> Göster</a>
+                                <a href="~/AdminCategory/Update?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                <a href="~/AdminCategory/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td>@item.MainCategoryName</td>
+                            @if (item.Status == 1)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>Pasif</td>
+                            }
+                            <td>
+                                <a href="~/AdminCategory/Manager?SelectID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-stack"><!-- --></i> Göster</a>
+                                <a href="~/AdminCategory/Update?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                                <a href="~/AdminCategory/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

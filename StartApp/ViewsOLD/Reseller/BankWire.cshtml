@@ -1,0 +1,118 @@
+﻿@using StartApp.Models
+@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Banka Havalesi - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+
+}
+
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Banka Havalesi</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Reseller">Panel</a></li>
+                        <li><a href="~/Reseller/Orders">Siparişler</a></li>
+                        <li class="active">Banka Havalesi</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <div class="col-md-12 strp-block-header">
+                            <p><i class="fa fa-angle-double-right"></i> Aşağıdaki Hesaplarımıza <b>Havale/EFT</b> Yaparak Ödeme Yapabilirsiniz.</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive m-b-40" style="clear: both;">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Banka Adı</th>
+                                            <th>Şube</th>
+                                            <th>Hesap No</th>
+                                            <th>Hesap Sahibi</th>
+                                            <th>IBAN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Banks)
+                                        {
+                                            <tr>
+                                                <td>@item.BankName</td>
+                                                <td>@item.BranchNo</td>
+                                                <td>@item.BankAccount</td>
+                                                <td>@item.AccountAuthorized</td>
+                                                <td>@item.IBAN</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12 strp-block-header">
+                            <p><i class="fa fa-angle-double-right"></i> Lütfen Havale/EFT Sonrası Ödeme Bildirimi Yapınız</p>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <h3><b>Tutar: @ViewBag.TotalPrice</b><i class="fa fa-try"></i></h3>
+                                </div>
+                                <div class="form-group">
+                                    <label><b>Sipariş No:</b></label>
+                                    @Html.TextBoxFor(x => x.BankWireDetails.OrderID, new { @Value = @ViewBag.OrderID, @readonly = "readonly", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label><b>Banka Hesabı:</b></label>
+                                    @Html.DropDownListFor(x => x.BankWireDetails.BankID, (List<SelectListItem>)ViewBag.BankWires, new { @class = "form-control", @required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    <label><b>Yatırılan Tutar:</b></label>
+                                    @Html.TextBoxFor(x => x.BankWireDetails.PaymetPrice, new { @class = "form-control", @style = "width:150px;", @type = "number", @min = "1", @required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    <label><b>Notunuz:</b></label>
+                                    @Html.TextAreaFor(x => x.BankWireDetails.Notes, new { @class = "form-control", @Rows = "5" })
+                                </div>
+                            @if (ViewBag.Status == null)
+                            {
+                                    <div class="form-group">
+                                        @Html.HiddenFor(x => x.BankWireDetails.BankName, new { @Value = @ViewBag.BankName })
+                                        @Html.HiddenFor(x => x.BankWireDetails.RegisterDate, new { @Value = DateTime.Now })
+                                        @Html.HiddenFor(x => x.BankWireDetails.Status, new { @Value = "1" })
+                                        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-send"></i> Ödeme Bildirimi Yap</button>
+                                    </div>
+                            }
+                            else
+                            {
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="alert alert-@ViewBag.Status" role="alert"> <i class="fa fa-check-circle-o"></i> @ViewBag.Result</div>
+                                        </div>
+                                    </div>
+
+                            }
+                       
+                        </div>
+                        <div class="clearfix"></div>
+                       
+                    </div>
+            
+            </div>
+
+            </div>
+
+        </div>
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+        </div>
+        
+            <!-- .row -->
+
+
+}

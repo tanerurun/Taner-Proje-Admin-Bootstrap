@@ -1,0 +1,55 @@
+﻿@model StartApp.Models.AffiliateView
+@using StartApp.Models
+@using StartApp.Business
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+    List<Categories> TempCategory = new List<Categories>();
+}
+
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Tüm Kategoriler</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/Affiliate">Anasayfa</a></li>
+                    <li class="active">Tüm Kategoriler</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="printableArea" class="white-box printableArea">
+                    <div class="col-md-3">
+                        <a href="~/Affiliate/CategoryList" style="color:#000000;" class="btn btn-block btn-warning"><strong>Tüm Kategorileri Listele</strong> <i class="fa fa-long-arrow-right"></i> </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    @foreach (var item in Model.Categories)
+                    {
+                        if (item.MainCategoryID == 0)
+                        {
+                            <hr />
+                            <h3><i class="fa fa-caret-right"></i> @item.Name</h3>
+
+                            TempCategory = Model.Categories.Where(x => x.MainCategoryID == item.ID).ToList();
+                            foreach (var itemx in TempCategory)
+                            {
+                                <div class="col-md-3 col-xs-12"><a href="~/Affiliate/Category?ID=@itemx.ID"><i class="fa fa-caret-right"></i> @itemx.Name</a> </div>
+                            }
+                        }
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+

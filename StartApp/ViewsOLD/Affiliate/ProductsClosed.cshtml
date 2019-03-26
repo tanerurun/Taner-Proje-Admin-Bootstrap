@@ -1,0 +1,84 @@
+﻿@model StartApp.Models.AffiliateView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Panel - Satış Ortaklığı";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Ürünler</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Affiliate/Index">Panel</a></li>
+                        <li class="active">Satışa Kapalı Ürünler</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs " role="tablist">
+                            <li role="presentation" class="nav-item"><a href="~/Affiliate/Products" class="nav-link aff-products-open-tab active-tab" aria-controls="profile" aria-expanded="false"><span><i class="fa fa-shopping-cart"></i></span> Satıça Açık Ürünler </a></li>
+                            <li role="presentation" class="nav-item"><a href="~/Affiliate/ProductsClosed" class="nav-link  aff-products-close-tab" aria-controls="messages" aria-expanded="false"><span><i class="ti-close"></i></span> Satışa Kapanan Ürünler</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <h3><span style="color:#ff0000;"><i class="fa fa-dot-circle-o"></i><b> Satışa Kapalı Ürün :</b> </span><b style="font-size:20pt">@ViewBag.Count </b> </h3>
+                            <div class="table-responsive" style="clear: both;">
+                                <table class="table table-hover">
+                                    <thead class="thead-default" style="background-color:#e4e7ea;color:#000; font-weight:600">
+                                        <tr>
+                                            <td>Fotoğraf </td>
+                                            <td>Ürün Kodu</td>
+                                            <td>Ürün</td>
+                                            <td>Açıklama</td>
+                                            <td>Fiyat</td>
+                                            <td>İşlem</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ProductsPaging)
+                                        {
+                                            <tr>
+                                                <td><img src="http://www.toptanara.com/Assets/Products/@item.MainImage" width="100" /> </td>
+                                                <td> @item.StockCode  </td>
+                                                <td> @item.Title  </td>
+                                                <td> @item.Description  </td>
+                                                <td> @item.Price TL </td>
+                                                <td>
+                                                    <a class="btn btn-warning disabled" href="~/Affiliate/Details?ID=@item.ID" style="color:#000;"><i class="fa fa-file-text-o"></i> Detay</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row pull-right">
+                                @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Products", new RouteValueDictionary {
+                                { "Page", Page },
+                                }))
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- /.container-fluid -->
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+    </div>
+}
+
+

@@ -1,0 +1,63 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Ödemeler";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Banka Havalesi</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Reseller">Panel</a></li>
+                    <li><a href="~/Reseller/Orders">Siparişler</a></li>
+                    <li class="active">Banka Havalesi</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    <div class="table-responsive m-b-40" style="clear: both;">
+                        <table class="table table-hover">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>Sipariş No</th>
+                                    <th>Tarih</th>
+                                    <th>Tutar</th>
+                                    <th>Durum</th>
+                                    <th>İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Payments)
+                            {
+                            <tr>
+                                <td>#SPR-@item.OrderNumber</td>
+                                <td>@item.RegisterDate</td>
+                                <td>@item.Price<i class="fa fa-try"></i></td>
+                                <td>@item.ConfirmDetails</td>
+                                <td>
+                                    <a href="/Reseller/Invoce?OrderID=@item.OrderNumber" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-file-text-o"></i> Detay</a>
+                                    @if (item.ConfirmID != 2)
+                                        {
+                                        <a href="/Reseller/BankWire?OrderID=@item.OrderNumber" class="btn btn-success btn-sm"><i class="fa fa-credit-card"></i> Ödeme Yap</a>
+                                        }
+                                </td>
+                            </tr>
+                            }
+                            </tbody>
+                        </table>
+                     
+                    </div>
+             </div>
+            </div>
+        </div>
+   </div>
+ </div>
+

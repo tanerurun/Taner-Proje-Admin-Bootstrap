@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "SearchingPage";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+}
+
+@using (Html.BeginForm("Searching", "Affiliate"))
+{
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title"><i class="ti-search"></i> Arama Yapın</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Affiliate">Panel</a></li>
+                        <li class="active">Arama</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box" style="background-color:#01c0c8;">
+
+                        @Html.AntiForgeryToken()
+                        <div class="col-md-5 offset-lg-3">
+                            <p class="stpr-search-engine-title" style="font-size:14pt;"><strong>Toptan Ne Aramıştınız? </strong></p>
+                            <div class="input-group stpr-search-engine-input">
+                                <input id="txtsearchengine" style="height:50px;" type="text" name="txtsearch" class="form-control" placeholder="Ürün adı, ürün kodu, marka arayın.."> <span class="input-group-btn"><button type="submit" style="border-color:#ffc926;" class="btn waves-effect waves-light btn-warning"><i style="color:#000;" class="fa fa-search"></i></button></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+            <!-- .row -->
+
+}
+

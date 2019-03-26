@@ -1,0 +1,63 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Models
+@using StartApp.Business
+ @{
+     cCategories Categories = new cCategories();
+     cSeo Seo = new cSeo();
+     Model.Categories = Categories.List();
+     List<Categories> DekorasyonList = Model.Categories.Where(x=>x.MainCategoryID == 33).Take(7).ToList();
+     List<Categories> EvGerecleriList = Model.Categories.Where(x => x.MainCategoryID == 39).Take(7).ToList();
+     List<Categories> MutfakList = Model.Categories.Where(x => x.MainCategoryID == 43).Take(7).ToList();
+     List<Categories> PlastikList = Model.Categories.Where(x => x.MainCategoryID == 48).Take(7).ToList();
+
+ }
+<li class="mega-dropdown pull-right">
+    <a class="dropdown-toggle waves-effect waves-light" style="font-size:13pt;" data-toggle="dropdown" href="#"><span class="hidden-xs"><b> <i class="ti-layout-grid2-alt"></i> <span class="hidden-lg-down">@StartApp.Language.Text.Categories.ToUpper()</span> </b></span></a>
+    <ul class="dropdown-menu mega-dropdown-menu animated bounceInDown">
+        <li class="col-sm-3">
+            <ul>
+                <li class="dropdown-header">Dekorasyon</li>
+                @foreach (var item in DekorasyonList)
+                {
+                        <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(item.Name)-@item.ID">@item.Name</a> </li>
+                }
+                <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler?ID=33"><strong><span class=" fa fa-long-arrow-down"></span> @StartApp.Language.Text.AllCategories </strong></a> </li>
+            </ul>
+        </li>
+        <li class="col-sm-3">
+            <ul>
+                <li class="dropdown-header">Ev Gereçleri</li>
+                @foreach (var item in EvGerecleriList)
+                {
+                    <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(item.Name)-@item.ID">@item.Name</a> </li>
+
+                }
+                <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler?ID=39"><strong><span class=" fa fa-long-arrow-down"></span> @StartApp.Language.Text.AllCategories </strong></a> </li>
+            </ul>
+        </li>
+        <li class="col-sm-3">
+            <ul>
+                <li class="dropdown-header">Mutfak</li>
+                @foreach (var item in MutfakList)
+                {
+
+                    <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(item.Name)-@item.ID">@item.Name</a> </li>
+
+                }
+                <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler?ID=43"><strong><span class=" fa fa-long-arrow-down"></span> @StartApp.Language.Text.AllCategories </strong></a> </li>
+            </ul>
+        </li>
+        <li class="col-sm-3">
+            <ul>
+                <li class="dropdown-header">Plastik</li>
+                @foreach (var item in PlastikList)
+                {
+
+                    <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(item.Name)-@item.ID">@item.Name</a> </li>
+
+                }
+                <li> <a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler?ID=48"><strong><span class=" fa fa-long-arrow-down"></span> Tümünü Listele </strong></a> </li>
+            </ul>
+        </li>
+    </ul>
+</li>

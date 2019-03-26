@@ -1,0 +1,119 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Müşteri Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<SelectListItem> CustomerControl = new List<SelectListItem>();
+    CustomerControl.Add(new SelectListItem { Text = "Aktif", Value = "1" });
+    CustomerControl.Add(new SelectListItem { Text = "Pasif", Value = "0" });
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminCustomer/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Müşteriler</a>
+        <a href="~/AdminCustomer/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Müşteri Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Müşteri Düzenle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-5 col-sm-12 xs-col-12">
+                    <div class="form-group">
+                        <label><b>Firma Ünvanı</b></label>
+                        @Html.TextBoxFor(x => x.CustomerDetails.CompanyTitle, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Yetkili Ad</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.Name, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Yetkili Soyad</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.Surname, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Telefon</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.Phone, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>E-Mail</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.Email, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Vergi Dairesi</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.TaxInfo, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Vergi No</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.TaxNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Ülke</b></label>
+                            @Html.TextBoxFor(x => x.AddresDetails.Country, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Şehir</b></label>
+                        @Html.TextBoxFor(x => x.AddresDetails.City, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Posta Kodu</b></label>
+                            @Html.TextBoxFor(x => x.AddresDetails.PostCode, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Adres</b></label>
+                            @Html.TextAreaFor(x => x.AddresDetails.Details, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Bayi Durumu</b></label>
+                            @Html.DropDownListFor(x => x.CustomerDetails.Status, (List<SelectListItem>)CustomerControl, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Bayi Kodu</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.CustomerCode, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Bayi Parola</b></label>
+                            @Html.TextBoxFor(x => x.CustomerDetails.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.AddresDetails.CustomerID, new { @Value = Model.CustomerDetails.ID })
+                        @Html.HiddenFor(x => x.AddresDetails.Title, new { @Value = "Adresiniz" })
+                        <button type="submit" class="btn btn-primary"> KAYDET </button>
+                        <a href="~/AdminCustomer/Update?ID=@Model.CustomerDetails.ID&MailSend=4701" class="btn btn-warning">Onay Gönder</a>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

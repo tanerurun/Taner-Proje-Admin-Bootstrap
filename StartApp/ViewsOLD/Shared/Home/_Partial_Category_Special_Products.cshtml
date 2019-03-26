@@ -1,0 +1,43 @@
+﻿
+@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    cProducts pList = new cProducts();
+    int CtgryID = Convert.ToInt32(ViewBag.CategoryID);
+    cSeo Seo = new cSeo();
+    /* New Products List */
+    List<StartApp.Models.Products> CategorySpecialProducts = pList.ListForCategoriy(CtgryID);
+    CategorySpecialProducts = CategorySpecialProducts.Where(x=>x.Special == 1).Take(12).ToList();
+    /* New Products List */
+
+}
+
+<!--Dekorasyon List -->
+<div class="row">
+    <div class="col-lg-12">
+        @if (CategorySpecialProducts.Count > 0)
+        {
+        <div class="panel panel-default block2" style="border:2px solid #f5f5f5;padding:12px 12px 0px 12px;background-color:#fcfafa;">
+            <div class="panel-wrapper collapse in">
+                <h3 style="color:#000000;"><i class="fa fa-star"></i><b> Öne Çıkanlar</b> / <small>@ViewBag.CategoriyName kategorisindeki en çok ilgi gören ürünler</small></h3>
+
+                <div id="owl-home-new-products" class="owl-carousel owl-theme owl-tabs">
+                    @foreach (var item in CategorySpecialProducts)
+                    {
+                        decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+                        <div class="item">
+                            <a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                                <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                                <p style="color:#000000; min-height:60px; text-align:center">@item.Title<br /><small align="center" class="text-muted db"> Ürün Kodu: @item.StockCode</small> </p>
+                                <h5 align="center"> <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h5>
+                                <p class="text-center"  style="color:#fff;background-color:#f72f2f" ><b> <i class="fa fa-star"></i> Popüler Ürün </b></p>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<!--Dekorasyon List -->

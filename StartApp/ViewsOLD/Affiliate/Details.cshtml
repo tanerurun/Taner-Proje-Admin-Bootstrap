@@ -1,0 +1,94 @@
+﻿@model StartApp.Models.AffiliateView
+@{
+    ViewBag.Title = "Ürün Bilgileri";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+    decimal CostPrice =  Convert.ToDecimal(Model.ProductDetails.CostPrice);
+    decimal AffPercentage = Convert.ToDecimal(Model.ProductDetails.AffPercentage);
+    decimal CargoPrice = Convert.ToDecimal(Model.ProductDetails.CargoPrice);
+    decimal ProductPrice = CostPrice + (CostPrice * AffPercentage / 100);
+    decimal Amount = ProductPrice + CargoPrice;
+
+    decimal GeneralPrice = Amount + (Amount * 35 / 100);
+}
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper" style="min-height: 577px;">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Ürün Bilgileri</h4>
+                </div>
+                <div class="col-md-9">
+                    <ol class="breadcrumb" style="font-weight:500;">
+                        <li> <i class="fa fa-home"></i> <a href="~/">Panel</a></li>
+                        <li> <a href="~/Affiliate/Category?ID=@Model.ProductDetails.CategoryID">@Model.ProductDetails.CategoryTitle</a></li>
+                        <li class="active">@Model.ProductDetails.Title</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="white-box">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-3 col-sm-6">
+                                    <div class="white-box text-center"> <img src="~/Assets/Products/@Model.ProductDetails.MainImage" class="img-responsive"><br />
+                                    <b><i class="fa fa-star"></i> Bu ürün fotoğrafını indirip satış için kullanabilirsiniz.</b>
+                                    <hr />
+                                    <a download="~/Assets/Products/@Model.ProductDetails.MainImage" href="~/Assets/Products/@Model.ProductDetails.MainImage" class="btn btn-success"> <i  class="fa fa-download"></i> Fotoğrafı İndir</a>
+                                     </div>
+                                </div>
+                                <div class="col-lg-6 col-md-9 col-sm-6">
+                                    <h2 class=" font-size-18 m-t-40">@Model.ProductDetails.Title</h2>
+                                    <p>@Model.ProductDetails.Details</p>   
+                                    <b>@Model.ProductDetails.ManufacturerName - @Model.ProductDetails.StockCode</b>   
+                                    <hr />
+                                    <p><i class="fa fa-sort-amount-asc"></i> Ortalama Satış Fiyatı: <b> @GeneralPrice.ToString("0.00")<i class="fa fa-try"></i> </b></p>
+                                    <hr />
+                                    <p><i class="fa fa-ticket"></i> Ürün Fiyatı: <b> @ProductPrice.ToString("0.00")<i class="fa fa-try"></i> </b></p>
+                                   <hr />
+                                     <p><i class="fa fa-truck"></i> Kargo Bedeli: <b> @CargoPrice.ToString("0.00")<i class="fa fa-try"></i> </b></p>
+                                     <hr />
+                                     <h4 class="m-t-10" style="color:#ff6a00;"><strong>Toptan Alış Fiyatınız: @Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h4>
+                                    <strong><i>*Bu fiyata kdv ve kargo bedeli dahildir.</i></strong>
+                                    <hr />
+                                    <div style="max-width:325px">
+                                        <div class="input-group"> <span class="input-group-addon">Adet</span> @Html.TextBoxFor(x => x.AffOrderProductDetails.Quantity, new { @class = "form-control", @type = "number", @placeholder = "adet giriniz..", required = "required", @min = '1' }) </div>
+                                    </div>
+                                    <br />
+                                    @Html.HiddenFor(x=>x.ProductDetails.ID)
+                                    @Html.HiddenFor(x => x.ProductDetails.Price, new { @Value=Amount })
+                                    <div class="input-group">
+                                        <button type="submit" style="color:#000;" class="btn btn-warning m-t-20">
+                                            <i class="ti-shopping-cart"></i>
+                                            Sipariş Oluştur
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--row -->
+        </div>
+        <!-- /.container-fluid -->
+        <div class="clearfix"></div>
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+    </div>
+}
+
+<script type="text/javascript">
+    $("input[name='CartDetails.Quantity']").focusout(function () {
+        var quantity = $("input[name='CartDetails.Quantity']").val();
+        var minquantity = @ViewBag.MinOrder;
+        if(quantity < minquantity)
+        {
+            quantity = minquantity;
+            alert('*Minimum '+minquantity+" ekleyin!");
+            $("input[name='CartDetails.Quantity']").val(minquantity)
+        }
+    });
+</script>

@@ -1,0 +1,102 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "ResellerManage";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<SelectListItem> CustomerControl = new List<SelectListItem>();
+    CustomerControl.Add(new SelectListItem { Text = "Aktif", Value = "1" });
+    CustomerControl.Add(new SelectListItem { Text = "Pasif", Value = "0" });
+
+    List<SelectListItem> SpecialList = new List<SelectListItem>();
+    SpecialList.Add(new SelectListItem { Text = "Hayır", Value = "0" });
+    SpecialList.Add(new SelectListItem { Text = "Evet", Value = "1" });
+
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/Admin/ProductManage" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Ürünler</a>
+        <a href="~/Admin/ProductAdd" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Ürün Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ürün Güncelle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-12 xs-col-12">
+
+                    <div class="form-group">
+                        <label>Stok Kodu</label>
+                        @Html.TextBoxFor(x => x.ProductDetails.StockCode, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Adı <small>(Türkçe)</small></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.Title, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Adı <small>(İngilizce)</small></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.TitleEng, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Sıra No (opsiyonel)</label>
+                        @Html.TextBoxFor(x => x.ProductDetails.ListNumber, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Vitrine Ekle</label>
+                        @Html.DropDownListFor(x => x.ProductDetails.Special, (List<SelectListItem>)SpecialList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        @Html.DropDownListFor(x => x.ProductDetails.CategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama <small>(Türkçe)</small></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.Description, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama <small>(İngilizce)</small></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.DescriptionEng, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama <small>(İngilizce)</small></label>
+                        @Html.TextBoxFor(x => x.ProductDetails.DescriptionEng, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Özellikleri <small>(Türkçe)</small></label>
+                        @Html.EditorFor(x => x.ProductDetails.Details, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Fiyat</label>
+                        @Html.TextBoxFor(x => x.ProductDetails.Price, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Koli İçi</label>
+                        @Html.TextBoxFor(x => x.ProductDetails.BoxQuantity, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input-icon form-input-icon-right">
+                            <label><b>Ürün Durumu</b></label>
+                            @Html.DropDownListFor(x => x.ProductDetails.Status, (List<SelectListItem>)CustomerControl, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.ProductDetails.ID)
+                        @Html.HiddenFor(x => x.ProductDetails.MainImage)
+                        <button type="submit" class="btn btn-primary"> KAYDET </button>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script type="text/javascript">
+    CKEDITOR.replace('ckeditor');
+    CKEDITOR.replace('ckeditorEng');
+</script>

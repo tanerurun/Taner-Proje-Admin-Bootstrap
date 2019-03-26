@@ -1,0 +1,116 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Sipariş Detay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminOrder/Details?ID=@Model.OrdersDetails.ID&Export=1" class="pull-right btn btn-warning"> <i class="fa fa-arrow-down"></i> Dışarı Aktar</a>
+        <a href="~/AdminOrder/Details?ID=@Model.OrdersDetails.ID&MailrderStatus=1" class="pull-right btn btn-danger"> <i class="fa fa-mail-forward"></i> Mail Sipariş Durumu</a>
+        <a href="~/AdminOrder/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Siparişler</a>
+        <a href="~/AdminOrder/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Sipariş Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sipariş Detayı</strong>
+        </span>
+    </div>
+
+    <div class="card-block">
+        @using (Html.BeginForm())
+        {
+            <div class="row" style="background-color:#514d6a;color:#ffffff;border:2px solid silver; padding-top:15px;">
+                <div class="col-md-2">
+                    <p> <b>Sipariş No:</b> @Html.TextBoxFor(x => x.OrdersDetails.ID, new { @class = "form-control", @readonly = "readonly" })</p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Sipariş Tarihi:</b> @Html.TextBoxFor(x => x.OrdersDetails.RegisterDate, new { @class = "form-control", @readonly = "readonly" })</p>
+                </div>
+                <div class="col-md-3">
+                    <p><b>Firma:</b> @Html.TextBoxFor(x => x.OrdersDetails.CompanyTitle, new { @class = "form-control", @readonly = "readonly" })</p>
+                </div>
+                <div class="col-md-3">
+                    <p><b>Yetkili:</b> @Html.TextBoxFor(x => x.OrdersDetails.UserName, new { @class = "form-control", @readonly = "readonly" })</p>
+                </div>
+                <div class="col-md-2">
+                    <p><b>Telefon:</b> @Html.TextBoxFor(x => x.CustomerDetails.Phone, new { @class = "form-control", @readonly = "readonly" })</p>
+                </div>
+            </div>
+            <div class="row" style="padding-top:15px;">
+                <div class="col-md-6">
+                    <p><b>Adres:</b> @Model.AddresDetails.Details <b>Şehir:</b> @Model.AddresDetails.City <b>Ülke:</b> @Model.AddresDetails.Country  </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-inline pull-right">
+                        <label><b>Durum: </b> </label>
+                        @Html.DropDownListFor(x => x.OrdersDetails.Confirm, (List<SelectListItem>)ViewBag.ConfirmList, new { @class = "form-control" })
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <a href="~/AdminOrder/Details?ID=@Model.OrdersDetails.ID&AllConfirmID=@Model.OrdersDetails.ID" class="btn btn-success"> <i class="fa fa-chevron-circle-up"><!-- --></i> Tümünü Onayla</a>
+                        <a href="~/AdminOrder/Details?ID=@Model.OrdersDetails.ID&DelID=@Model.OrdersDetails.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="btn btn-danger"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        @Html.HiddenFor(x => x.OrdersDetails.ConfirmDetails)
+                        @Html.HiddenFor(x => x.OrdersDetails.PaymentStatus)
+                        @Html.HiddenFor(x => x.OrdersDetails.PaymetStatusID)
+                        @Html.HiddenFor(x => x.OrdersDetails.Status)
+                        @Html.HiddenFor(x => x.OrdersDetails.UserID)
+                    </div>
+                </div>
+            </div>
+        }
+        <!--ORDER PRODUCTS--->
+        <div class="col-md-12" style="margin-bottom:30px;">
+            <h4><i class="fa fa-list"></i> <b>Sipariş Listesi</b></h4>
+            <hr />
+            <table class="table table-hover nowrap" style="background-color:#fafafa;" width="100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Ürün Kodu</th>
+                        <th>Fotoğraf</th>
+                        <th>Ürün</th>
+                        <th>Not</th>
+                        <th style="min-width:75px;">Fiyat</th>
+                        <th>Adet</th>
+                        <th  style="min-width:75px;">Tutar</th>
+                        <th  style="min-width:110px;">Durum</th>
+                        <th  style="min-width:85px;">#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderProducts)
+                    {
+                        <tr>
+                            <td>@item.StockCode</td>
+                            <td><img src="~/Assets/Products/@item.Image" width="40" /></td>
+                            <td><a target="_blank" href="/Home/Details?ID=@item.ProductID"> @item.Title</a></td>
+                            <td>@item.UserDescription</td>
+                            <td>@item.Price<i class="fa fa-try"></i></td>
+                            <td>@item.Quantity</td>
+                            @{
+                                decimal tPrice = Convert.ToDecimal(item.Quantity * item.Price);
+                            }
+                            <td>@tPrice<i class="fa fa-try"></i></td>
+                            @if (item.Confirm == 2)
+                            {
+                                <td><i class="fa fa-circle" style="color:#61ad46;"></i> Onaylandı</td>
+                            }
+                            else if (item.Confirm == 1)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ffd800;"></i> Bekliyor</td>
+                            }
+                            else if (item.Confirm == 3)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ff0000;"></i> Onaylanmadı</td>
+                            }
+                            <td>
+                                <a href="~/AdminOrder/OrderProductDetails?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Detay</a>
+                            </td>
+                        </tr>
+                                }
+                </tbody>
+            </table>
+        </div>
+
+        <hr />
+        <div class="col-md-12">
+            <p class="pull-right font-size-18">Toplam Tutar: <b>@TempData["TotalPrice"]</b><i class="fa fa-try"></i></p>
+        </div>
+    </div>
+</section>

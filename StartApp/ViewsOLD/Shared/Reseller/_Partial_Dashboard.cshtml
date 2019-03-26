@@ -1,0 +1,99 @@
+﻿@using StartApp.Business
+@model StartApp.Models.ResellerView
+
+@{
+    cOrders Orders = new cOrders();
+    cLogin LoginStatus = new cLogin();
+    cSupports Support = new cSupports();
+    cProducts Products = new cProducts();
+    Model.Supports = Support.List(LoginStatus.ResellerDetails().ResellerID);
+    Model.Orders = Orders.List(LoginStatus.ResellerDetails().ResellerID);
+    Model.Products = Products.List();
+    ViewBag.WaitingOrderCount = Model.Orders.Where(x => x.Confirm == 1).Count();
+    ViewBag.CompletedOrderCount = Model.Orders.Where(x => x.Confirm == 2).Count();
+    ViewBag.SupportCount = Model.Supports.Count();
+    ViewBag.NewProductCount = Model.Products.Count();
+}
+
+<br />
+<div class="row hidden-xs">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row strp-dashboard">
+                        <a href="~/Reseller/NewProducts">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i data-icon="&#xe013;" class="linea-icon linea-basic"></i>
+                            <h5 class="text-muted vb">TÜM ÜRÜNLER</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h3 class="counter text-right m-t-15 text-danger">@ViewBag.NewProductCount</h3>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row strp-dashboard">
+                        <a href="~/Reseller/Orders">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="linea-icon linea-basic" data-icon="d"></i>
+                                <h5 class="text-muted vb">BEKLEYEN SİPARİŞLER</h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h3 class="counter text-right m-t-15 text-primary">@ViewBag.WaitingOrderCount</h3>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 b-0">
+                    <div class="col-in row strp-dashboard">
+                        <a href="~/Reseller/Orders">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="linea-icon linea-basic" data-icon="&#xe019;"></i>
+                            <h5 class="text-muted vb">TAMAMLANAN SİPARİŞLER</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h3 class="counter text-right m-t-15 text-success">@ViewBag.CompletedOrderCount</h3>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                            </div>
+                        </div>
+                      </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6  row-in-br  b-r-none">
+                    <div class="col-in row strp-dashboard">
+                        <a href="~/Reseller/SupportList">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="linea-icon linea-basic" data-icon="&"></i>
+                                <h5 class="text-muted vb">DESTEK TALEBİ</h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h3 class="counter text-right m-t-15 text-megna">@ViewBag.SupportCount</h3>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

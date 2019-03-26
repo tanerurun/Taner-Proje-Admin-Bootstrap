@@ -1,0 +1,70 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = Model.BlogCategoriyDetails.Name + " - toptanara.com";
+    ViewBag.Description = Model.BlogCategoriyDetails.Name + " kategorisinde trend birçok ürünleri sizler için inceliyor ve en ucuz toptan ürünleri size sunuyoruz.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+}
+
+@using (Html.BeginForm())
+{
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div class="">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                    <li> <a href="~/blog">Blog</a></li>
+                    <li class="active">@Model.BlogCategoriyDetails.Name</li>
+                </ol>
+            </div>
+            <!--breadcrumb-->
+            <div class="col-md-9" style="min-height:450px;">
+                <div class="white-box">
+                    @foreach (var item in Model.Blogs)
+                    {
+                        <div class="col-md-6">
+                            <a href="~/blog/@Seo.CreateUrl(item.Title)-@item.ID">
+                                <img src="~/Assets/blog/images/@item.Image" class="img-responsive" />
+                            </a>
+                            <br />
+                            <span class="badge badge-warning">@item.CategoryName</span> <span><i class="fa fa-clock-o"></i>@item.RegisterDate</span>
+                            <a href="~/blog/@Seo.CreateUrl(item.Title)-@item.ID">
+                                <h3 class="stpr-blog-title-limit stpr-blog-title-hover"><strong> @item.Title </strong></h3>
+                            </a>
+                            <p class="stpr-blogdetails-limit">@Html.Raw(item.Description)</p>
+                        </div>
+                    }
+                    <div class="clearfix"></div>
+                    @if (ViewBag.Count == 0)
+                    {
+                        <div class="row">
+                            <h4 class="text-center"><i class="fa fa-warning"></i> Bu Kategoride Makale Bulunamadı. </h4>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-3" style="min-height:450px;">
+                @Html.Partial("~/Views/Shared/Blog/_Partial_Right_Menu.cshtml")
+            </div>
+            <div class="clearfix"></div>
+
+            <!--breadcrumb-->
+            <div class="col-md-9">
+                <div class="clearfix"></div>
+                <div class="pull-left">
+                    <p style="font-weight:500;"><i class="fa fa-search-plus"></i>Toplam @ViewBag.Count makale bulundu.</p>
+                </div>
+                <div class="pull-right">
+                    @Html.PagedListPager((IPagedList)Model.Blogs, Page => Url.Action("Category", new RouteValueDictionary {
+                    { "Page", Page },
+                    }))
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+

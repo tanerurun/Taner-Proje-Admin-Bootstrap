@@ -1,0 +1,51 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "AdminManage";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/Admin/AdminManage" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Yöneticiler</a>
+        <a href="~/Admin/AdminAdd" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Yönetici Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-user"></i> Yöneticiler</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Admins)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.AdminName</td>
+                        <td>@item.AdminSurname</td>
+                        @if (item.Status == 1)
+                        {
+                            <td>Aktif</td>
+                        }
+                        else
+                        {
+                            <td>Pasif</td>
+                        }
+                        <td>
+                            <a href="~/Admin/AdminUpdate?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            <a href="~/Admin/AdminManage?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

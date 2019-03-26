@@ -1,0 +1,109 @@
+﻿@model StartApp.Models.HomeView
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    HttpCookie cookie = HttpContext.Current.Request.Cookies["Language"];
+    string LangCode = cookie.Value.ToString();
+}
+   <!-- Main component call to action -->
+<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="breadcrumbDiv col-lg-12">
+            <ul class="breadcrumb">
+                <li><a href="~/"> @StartApp.Language.Text.Home </a></li>
+                <li class="active"> @if (LangCode == "en"){  @ViewBag.CategoryNameEng } else { @ViewBag.CategoryName }
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.row  -->
+
+    <div class="row">
+
+        <!--left column-->
+
+        @Html.Partial("~/Views/Shared/_PartialFilterCategories.cshtml")
+
+        <!--right column-->
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="w100 clearfix category-top">
+                <h2> @if (LangCode == "en")  {  @ViewBag.CategoryNameEng } else { @ViewBag.CategoryName }</h2>
+                <!-- <div class="categoryImage"><img src="~/images/site/category.jpg" class="img-responsive" alt="img"></div> -->
+            </div>
+            <!--/.category-top-->
+
+            <!--/.productFilter-->
+            <div class="row  categoryProduct xsResponse clearfix">
+                @foreach (var item in Model.Products)
+                {
+                <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                    <div class="product">
+                        <a class="add-fav tooltipHere" data-toggle="tooltip"
+                           data-placement="left">
+                            <i class="glyphicon glyphicon-heart"></i>
+                        </a>
+
+                        <div class="image">
+                            <a href="~/Home/ProductDetails?ID=@item.ID">
+                                <img src="~/Assets/products/@item.MainImage" alt="img"
+                                     class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="description">
+                            <h4><a href="~/Home/ProductDetails?ID=@item.ID">
+                                    @if (LangCode == "en")  {  @item.TitleEng }  else  { @item.Title }    
+                                </a>
+                            </h4>
+
+                            <div class="grid-description">
+                                <p><i> @StartApp.Language.Text.ProductCode : @item.StockCode </i> <br />
+                                    @if (LangCode == "en") {  @item.DescriptionEng }  else  { @item.Description }                               
+                                </p>
+                            </div>
+                            <div class="list-description">
+                                <p><i> @StartApp.Language.Text.ProductCode : @item.StockCode </i> <br />
+                                    @if (LangCode == "en") {  @item.DescriptionEng } else  { @item.Description }    
+                                </p>
+                            </div>
+                        </div>
+                        <div class="action-control">
+                            <a href="~/Home/ProductDetails?ID=@item.ID" class="btn btn-primary">
+                                <span class="add2cart">
+                                    <i class="glyphicon glyphicon-eye-open"></i> @StartApp.Language.Text.View 
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+                }
+            </div>
+            <!--/.categoryProduct || product content end-->
+
+            <div class="w100 categoryFooter">
+                <!--
+                <div class="pagination pull-left no-margin-top">
+                    <ul class="pagination no-margin-top">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+                 -->
+                <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
+                    <p class="pull-left"> @StartApp.Language.Text.NumberofProductsShown: <strong> @ViewBag.ProductCount </strong></p>
+                </div>
+            </div>
+            <!--/.categoryFooter-->
+        </div>
+        <!--/right column end-->
+    </div>
+    <!-- /.row  -->
+    </div>
+    <!-- /main container -->
+

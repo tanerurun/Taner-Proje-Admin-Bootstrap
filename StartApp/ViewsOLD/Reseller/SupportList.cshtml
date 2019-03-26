@@ -1,0 +1,75 @@
+﻿@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Destek Listesi";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Destek Talepleri</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Reseller">Panel</a></li>
+                    <li class="active">Destek Talepleri</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    <h2 class="m-b-20"><a href="~/Reseller/Support" class="btn btn-success waves-effect waves-light"><span class="btn-label"><i class="fa fa-plus"></i></span>Yeni Destek Talebi</a></h2>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs " role="tablist">
+                        <li role="presentation" class="nav-item"><a href="~/Reseller/Customer" class="nav-link" aria-controls="profile" aria-expanded="false"><span><i class="ti-user"></i></span> Müşteri Bilgileri </a></li>
+                        <li role="presentation" class="nav-item"><a href="~/Reseller/SupportList" class="nav-link active" aria-controls="messages" aria-expanded="false"><span><i class="ti-email"></i></span> Destek Talebi</a></li>
+                        <li role="presentation" class="nav-item"><a href="~/Reseller/Settings" class="nav-link" aria-controls="settings" aria-expanded="false"><span><i class="ti-settings"></i></span> Tercihler</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="iprofile" aria-expanded="false">
+                            <table class="table table-hover nowrap" width="100%">
+                                <thead class="thead-default">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tarih</th>
+                                        <th>Departman</th>
+                                        <th>Konu</th>
+                                        <th>Durum</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Supports)
+                                    {
+                                        <tr>
+                                            <td>@item.ID</td>
+                                            <td>@item.RegisterDate</td>
+                                            <td>@item.Departman</td>
+                                            <td>@item.Subject</td>
+                                            <td><b>@item.Process</b></td>
+                                            <td>
+                                                <a href="~/Reseller/SupportDetails?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="fa fa-file-text"><!-- --></i> Detay Göster</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- /.container-fluid -->
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+
+

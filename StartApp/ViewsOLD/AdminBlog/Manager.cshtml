@@ -1,0 +1,59 @@
+﻿@model StartApp.Models.AdminView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Blog Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminBlog/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Makaleler</a>
+        <a href="~/AdminBlog/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Makale Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Makale Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <table class="table table-hover nowrap" style="width:100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>No</th>
+                        <th>Kategori</th>
+                        <th>Başlık</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Blogs)
+                {
+                <tr>
+                    <td>@item.ID</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.Title</td>
+                        @if (item.Status == 1)
+                        {
+                        <td>Aktif</td>
+                        }
+                        else
+                        {
+                        <td>Pasif</td>
+                        }
+                        <td>
+                            <a href="~/AdminBlog/Update?ID=@item.ID" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            <a href="~/AdminBlog/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.Blogs, Page => Url.Action("Manager", new RouteValueDictionary {
+                { "Page", Page},
+          }))
+        </div>
+    </div>
+</section>

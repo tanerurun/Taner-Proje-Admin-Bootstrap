@@ -1,0 +1,67 @@
+﻿@model StartApp.Models.AffiliateView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Arama - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+}
+
+<div id="page-wrapper" style="min-height: 577px;">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Arama</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Affiliate">Panel</a></li>
+                    <li class="active">Arama</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            @foreach (var item in Model.ProductsPaging)
+            {
+                decimal AmountPlus = Convert.ToDecimal((item.CostPrice * item.AffPercentage) / 100);
+                decimal Amount = Convert.ToDecimal(item.CostPrice + AmountPlus + item.CargoPrice);
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="white-box  strp-product">
+                        <div class="product-img">
+                            <img src="~/Assets/Products/@item.MainImage">
+                            <div class="pro-img-overlay">
+                                <a href="~/Affiliate/Details?ID=@item.ID" class="bg-warning"><i class="ti-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-text">
+                            <h3 class="box-title m-b-0"><a href="~/Affiliate/Details?ID=@item.ID"> @item.Title </a> </h3>
+                            <small class="text-muted db"> @item.ManufacturerName - @item.StockCode</small>
+                        </div>
+                        <div class="product-text">
+                            <h4>Birim Fiyat: <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i> </strong></h4>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (ViewBag.Count == 0)
+            {
+                <div class="white-box" style="width:100%">
+                    <h4 class="text-center"><i class="fa fa-warning"></i> <strong>@ViewBag.SerchingText</strong> arama kriterinize uygun ürün bulunamadı!</h4>
+                </div>
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Searching", new RouteValueDictionary { { "txtsearch", ViewBag.SerchingText }, { "Page", Page } }))
+        </div>
+        <b>Bulunan Ürün: @ViewBag.Count</b>
+    </div>
+    <div class="clearfix"></div>
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div><br /><br />
+<!-- /.container-fluid -->
+
+
+

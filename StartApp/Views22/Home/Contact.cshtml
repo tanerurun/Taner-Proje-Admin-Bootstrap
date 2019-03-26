@@ -1,0 +1,112 @@
+﻿@using StartApp.Business
+@model StartApp.Models.HomeView
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="parallax-section parallax-fx parallax-image-contact parallaxOffset no-padding">
+    <div class="w100 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="parallax-content clearfix animated ">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.parallax -->
+<!-- /.parallax -->
+<div class="container main-container">
+    <div class="row innerPage">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="row userInfo">
+                @using (Html.BeginForm())
+                {
+                <div class="col-xs-12 col-sm-12">
+
+                    <h1 class="title-big text-center section-title-style2">
+                        <span> @StartApp.Language.Text.ContactUs </span>
+                    </h1>
+
+                    <p class="lead text-center">
+                        @StartApp.Language.Text.ContactUsforDetailedInformationandPromotion 
+                    </p><br />
+                    <div class="row col-md-offset-2">
+                        <div class="col-md-5"><h3>@StartApp.Language.Text.ContactForm </h3></div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-5">
+                            <label>@StartApp.Language.Text.NameSurname *</label>
+                            @Html.TextBoxFor(x => x.Supports.UserName, new { @class = "form-control", @required = "required" })
+                        </div>
+                        <div class="col-md-5">
+                            <label>@StartApp.Language.Text.Email*</label>
+                            @Html.TextBoxFor(x => x.Supports.Email, new { @class = "form-control", @type="EMail", @required = "required" })
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-5">
+                            <label>@StartApp.Language.Text.Department*</label>
+                            @Html.TextBoxFor(x => x.Supports.Departman, new { @class = "form-control", @required = "required" })
+                        </div>
+                        <div class="col-md-5">
+                            <label>@StartApp.Language.Text.Subject </label>
+                            @Html.TextBoxFor(x => x.Supports.Subject, new { @class = "form-control", @required = "required" })
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-10">
+                            <label>@StartApp.Language.Text.Message *</label>
+                            @Html.TextAreaFor(x => x.Supports.Message, new { @class = "form-control", @required = "required", @Rows = "5" })
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-10">
+                            <br />
+                            <button type="submit" class="btn btn-primary">@StartApp.Language.Text.Send </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><br />
+                    <hr /><br />
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <h3 class="block-title-5">
+                                @StartApp.Language.Text.ContactInformation 
+                            </h3>
+                            <p><b>@StartApp.Language.Text.Center : </b>  @Model.CompanyDetails.Address - @Model.CompanyDetails.City / @Model.CompanyDetails.Country
+                            <br><strong>@StartApp.Language.Text.Phone:</strong> @Model.CompanyDetails.Phone
+                            <br /><strong>@StartApp.Language.Text.Email :</strong> @Model.CompanyDetails.Email
+                            </p>
+                        </div>
+
+                        <div style="clear:both"></div>
+                        <hr>
+                        <div style="clear:both"></div>
+
+                        <div class="w100 map">
+                            <iframe width="100%" height="350" id="googleMap" frameborder="0" 
+                              scrolling="no" 
+                              marginheight="0"
+                              marginwidth="0"
+                              src="@Model.CompanyDetails.Map">
+                            </iframe>
+                        </div>
+
+                    </div>
+                    <!--/.row-->
+                </div>
+                }
+
+            </div>
+            <!--/.row  ||  -->
+
+        </div>
+    </div>
+    <!--/row || innerPage end-->
+    <div style="clear:both"></div>
+</div>
+<!-- ./main-container -->
+    <div style="clear:both"></div>
+

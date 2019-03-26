@@ -1,0 +1,50 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/Admin/PageCategoryManage" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Kategoriler</a>
+        <a href="~/Admin/PageCategoryAdd" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kategori Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Kategori Ekle</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label>Adı</label>
+                        @Html.TextBoxFor(x => x.PageCategoryDetails.Name, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        @Html.TextBoxFor(x => x.PageCategoryDetails.Description, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ana Kategori</label>
+                        @Html.DropDownListFor(x => x.PageCategoryDetails.MainCategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(x => x.PageCategoryDetails.Status, new { @Value = "1" })
+                       <input type="submit" class="btn btn-primary" value="Kaydet" />
+                    </div>
+                }
+            </div>
+            @if (ViewBag.Status != null)
+            {
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,130 @@
+﻿@using StartApp
+@using StartApp.Business
+@model StartApp.Models.HomeView
+    @{ 
+        cCategories Category = new cCategories();
+        Model.Categories = Category.List();
+
+        cLanguage Language = new cLanguage();
+        string LangCode = Language.Details();
+
+    }
+<div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
+    <div class="navbar-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                    <div class="pull-left ">
+                        <ul class="userMenu ">
+                            <li>
+                                <a href="~/iletisim">
+                                    <span class="hidden-xs"> @StartApp.Language.Text.ContactUs </span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i>
+                                </a>
+                            </li>
+                            <li class="phone-number">
+                                <a href="#">
+                                    <span>
+                                        <i class="glyphicon glyphicon-phone-alt "></i>
+                                    </span> <span class="hidden-xs"
+                                        style="margin-left:5px">0 212 537 37 44 </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+                    <div class="pull-right">
+                        <ul class="userMenu">
+                            <li> <a href="/Home/Change?LanguageAbbrevation=en"><img src="~/Assets/img/en-icon.png" /> ENGLISH </a></li>
+                            <li> <a href="/Home/Change?LanguageAbbrevation=tr"><img src="~/Assets/img/tr-icon.png" /> TÜRKÇE </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.navbar-top-->
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">MENÜ</span> <span class="icon-bar"> </span> <span class="icon-bar"></span> <span class="icon-bar"> </span>
+            </button>
+            <a class="navbar-brand " href="~/"> <img src="~/Assets/img/logo.png" class="img-responsive" alt="FABRİKA"> </a>
+
+            <!-- this part for mobile -->
+            <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+                <div class="input-group">
+                    <button class="btn btn-nobg getFullSearch" type="button"><i class="fa fa-search"> </i></button>
+                </div>
+                <!-- /input-group -->
+
+            </div>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"> @Html.ActionLink(StartApp.Language.Text.Home,"Index","Home")</li>
+                <li class="dropdown megamenu-fullwidth">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="~/#">
+                        @StartApp.Language.Text.Products<b class="caret"> </b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="megamenu-content ">
+                            <ul class="col-lg-3  col-sm-3 col-md-3 unstyled noMarginLeft newCollectionUl">
+                                <li class="no-border">
+                                    <p class="promo-1"><strong> @StartApp.Language.Text.Categories </strong></p>
+                                </li>
+                                @foreach (var item in Model.Categories)
+                                {
+                                   <li><a href="~/Home/Categories?ID=@item.ID" style="font-size:12pt;">
+                                        <i class="fa fa-caret-right"></i>
+                                        @if (LangCode == "en") {  @item.NameEng } else {  @item.Name  } </a>     
+                                   </li>
+                                }
+                            </ul>
+                            <ul class="col-lg-3  col-sm-3 col-md-3  col-xs-4">
+                                <li>
+                                    <a class="newProductMenuBlock" href="~/Home/ProductDetails?ID=4867">
+                                        <img class="img-responsive" src="~/Assets/img/promo/promo1.jpg"> <span class="ProductMenuCaption"><i class="fa fa-caret-right"> </i>@StartApp.Language.Text.CoffeeSet</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="col-lg-3  col-sm-3 col-md-3  col-xs-4">
+                                <li>
+                                    <a class="newProductMenuBlock" href="~/Home/ProductDetails?ID=4864">
+                                        <img class="img-responsive" src="~/Assets/img/promo/promo2.jpg"> <span class="ProductMenuCaption"><i class="fa fa-caret-right"> </i> @StartApp.Language.Text.CoffeeSet</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="col-lg-3  col-sm-3 col-md-3  col-xs-4">
+                                <li>
+                                    <a class="newProductMenuBlock" href="~/Home/ProductDetails?ID=4835">
+                                        <img class="img-responsive" src="~/Assets/img/promo/promo3.jpg"> <span class="ProductMenuCaption"><i class="fa fa-caret-right"> </i> @StartApp.Language.Text.CoffeeSet </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="~/hakkimizda"> @StartApp.Language.Text.About </a></li>
+                <li> @Html.ActionLink(StartApp.Language.Text.Contact, "Contact", "Home") </li>
+            </ul>
+
+            <!--- this part will be hidden for mobile version -->
+            <div class="nav navbar-nav navbar-right hidden-xs">
+                @Html.Partial("~/Views/Shared/_PartialSearchingFull.cshtml")
+             </div>
+                <!--/.navbar-nav hidden-xs-->
+            </div>
+        <!--/.nav-collapse -->
+
+    </div>
+    <!--/.container -->
+    
+        <div class="search-full text-right">
+        @Html.Partial("~/Views/Shared/_PartialSearching.cshtml")
+        </div>
+        <!--/.search-full-->
+
+    </div>

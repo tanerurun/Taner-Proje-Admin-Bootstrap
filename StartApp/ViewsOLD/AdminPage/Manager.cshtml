@@ -1,0 +1,51 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminPage/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Sayafalar</a>
+        <a href="~/AdminPage/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Sayfa Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sayfa Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Pages)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Title</td>
+                        <td>@item.CategoryName</td>
+                        @if (item.Status == 1)
+                        {
+                            <td> Aktif </td>
+                        }
+                        else
+                        {
+                            <td> Pasif </td>
+                        }
+                        <td>
+                            <a href="~/AdminPage/Update?ID=@item.ID" target="_blank" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Güncelle</a>
+                            <a href="~/AdminPage/Manager?DelID=@item.ID" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

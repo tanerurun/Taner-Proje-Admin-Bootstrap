@@ -1,0 +1,114 @@
+﻿@model StartApp.Models.AdminView
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Sipariş Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminOrder/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Siparişler</a>
+        <a href="~/AdminOrder/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Sipariş Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Sipariş Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        @using (Html.BeginForm("Manager", "AdminOrder", FormMethod.Post))
+        {
+            <div class="row" style="background-color:#514d6a;color:#ffffff;border:2px solid silver; padding-top:15px;">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="OrderSearching" placeholder="Sipariş No.." />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" name="CustomerID" required>
+                            <option value="0">--Müşteri Seç--</option>
+                            <option value="0">Tümünü Listele</option>
+                            @foreach (var item in Model.Customers)
+                {
+                                <option value="@item.ID"> @item.CompanyTitle > @item.Name  @item.Surname </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="OrderDate"/>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select class="form-control" name="OrderStatus">
+                            <option value="0">--Durum Seç--</option>
+                            <option value="0">Tümünü Listele</option>
+                            <option value="1">Onay Bekliyor</option>
+                            <option value="2">Onaylandı</option>
+                            <option value="3">Onaylanmadı</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-large">Ara</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <table class="table table-hover nowrap" style="width:100%">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Sipariş</th>
+                        <th>Tarih</th>
+                        <th>Bayi Kodu</th>
+                        <th>Firma</th>
+                        <th>Yetkili</th>
+                        <th>Durum Detay</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.RegisterDate</td>
+                            <td>@item.UserID</td>
+                            <td>@item.CompanyTitle</td>
+                            <td>@item.UserName</td>
+                            @if (item.Confirm == 2)
+                            {
+                                <td><i class="fa fa-circle" style="color:#61ad46;"></i> @item.ConfirmDetails </td>
+                            }
+                            else if (item.Confirm == 1)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ffd800;"></i> @item.ConfirmDetails </td>
+                            }
+                            else if (item.Confirm == 3)
+                            {
+                                <td><i class="fa fa-circle" style="color:#ff0000;"></i> @item.ConfirmDetails </td>
+                            }
+                            <td>
+                                <a href="~/AdminOrder/Details?ID=@item.ID" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.Orders, Page => Url.Action("Manager", new RouteValueDictionary {
+                { "Page", Page},
+                { "OrderSearching", ViewBag.OrderSearching },
+                { "CustomerID", ViewBag.CustomerID },
+                { "OrderStatus", ViewBag.OrderStatus }
+             }))
+        </div>
+        <b>Toplam Sipariş: @ViewBag.Count</b>
+    </div>
+</section>

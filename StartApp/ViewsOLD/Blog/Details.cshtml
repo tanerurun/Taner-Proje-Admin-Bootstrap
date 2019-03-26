@@ -1,0 +1,44 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    ViewBag.Title = Model.BlogDetails.Title +" - toptanara.com";
+    ViewBag.Description = Model.BlogDetails.Description;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+}
+
+@using (Html.BeginForm())
+{
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div class="">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                    <li> <a href="~/blog">Blog</a></li>
+                    <li class="active">@Model.BlogDetails.Title</li>
+                </ol>
+            </div>
+            <!--breadcrumb-->
+            <div class="col-md-9" style="min-height:450px;">
+                <div class="white-box">
+                    <div class="col-md-12">
+                            <img src="~/Assets/blog/images/@Model.BlogDetails.Image" class="img-responsive" />
+                        <br />
+                        <span class="badge badge-warning">@Model.BlogDetails.CategoryName</span> <span><i class="fa fa-clock-o"></i> @Model.BlogDetails.RegisterDate</span>
+                            <h3><strong> @Model.BlogDetails.Title </strong></h3>
+                        <p>@Html.Raw(Model.BlogDetails.Details)</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="min-height:450px;">
+                @Html.Partial("~/Views/Shared/Blog/_Partial_Right_Menu.cshtml")
+            </div>
+            <div class="clearfix"></div>
+
+            <!--breadcrumb-->
+
+        </div>
+    </div>
+}
+

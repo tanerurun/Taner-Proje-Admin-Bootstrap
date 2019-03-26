@@ -1,0 +1,127 @@
+﻿@model StartApp.Models.ResellerView
+@using StartApp.Business
+@{
+    //Login Control
+    cLogin LoginStatus = new cLogin();
+    cCustomer Customer = new cCustomer();
+    LoginStatus.ResellerValidate();
+
+        Model.CustomerDetails = Customer.Details(LoginStatus.ResellerDetails().ResellerID);
+        ViewBag.UserName = Model.CustomerDetails.Name + " " + Model.CustomerDetails.Surname;
+
+}
+
+<!DOCTYPE html>
+<!--
+   This is a starter template page. Use this page to start your new project from
+   scratch. This page gets rid of all links and provides the needed markup only.
+   -->
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="../Assets/reseller/image/png" sizes="16x16" href="../Assets/reseller/plugins/images/favicon.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="../Assets/reseller/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Assets/reseller/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+    <!-- This is Sidebar menu CSS -->
+    <link href="../Assets/reseller/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- This is a Animation CSS -->
+    <link href="../Assets/reseller/css/animate.css" rel="stylesheet">
+    <!-- This is a Custom CSS -->
+    <link href="../Assets/reseller/css/style.css" rel="stylesheet">
+
+    <link href="../Assets/reseller/plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Assets/reseller/plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- jQuery -->
+    <script src="../Assets/reseller/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Assets/reseller/plugins/bower_components/jqueryui/jquery-ui.js"></script>
+    <link href="~/Assets/reseller/plugins/bower_components/jqueryui/jquery-ui.min.css" rel="stylesheet" />
+
+    <!---StartApp Scripts---->
+    <script src="~/Assets/reseller/startapp-scripts/startapp-scripts.js"></script>
+    <link href="~/Assets/reseller/startapp-scripts/startapp-style.css" rel="stylesheet" />
+    <!---StartApp Scripts---->
+
+    <!-- color CSS you can use different color css from css/colors folder -->
+    <!-- We have chosen the skin-gray-dark (gray-dark.css) for this starter
+         page. However, you can choose any other skin from folder css / colors .
+         -->
+    <link href="~/Assets/reseller/css/colors/megna.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+    <!--GOOGLE ANALITYICS--->
+    <meta name="google-site-verification" content="q_v5iuLzaMy4V0ulYEk9L3QerMv1GxgVx6iK_XU-hxw" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103825412-2"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-103825412-2');
+    </script>
+
+    <!--GOOGLE ANALITYICS--->
+
+</head>
+
+<body class="fix-sidebar  fix-header">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        
+        <!-- Top Navigation -->
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Navbar.cshtml")
+        <!-- End Top Navigation -->
+
+        <!-- Left navbar-header -->
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Left_Menu.cshtml")
+        <!-- Left navbar-header end -->
+        
+        <!-- Page Content -->
+        @RenderBody()
+
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Mobile_Menu.cshtml")
+
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../Assets/reseller/bootstrap/dist/js/tether.min.js"></script>
+    <script src="../Assets/reseller/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../Assets/reseller/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+    <!-- Sidebar menu plugin JavaScript -->
+    <script src="../Assets/reseller/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--Slimscroll JavaScript For custom scroll-->
+    <script src="../Assets/reseller/js/jquery.slimscroll.js"></script>
+
+
+    <link href="../Assets/reseller/css/animate.css" rel="stylesheet">
+    <!--Wave Effects -->
+    <script src="../Assets/reseller/js/waves.js"></script>
+    <script src="../Assets/reseller/plugins/bower_components/owl.carousel/owl.carousel.min.js"></script>
+    <script src="../Assets/reseller/plugins/bower_components/owl.carousel/owl.custom.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../Assets/reseller/js/custom.min.js"></script>
+    <script src="../Assets/reseller/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="~/Assets/reseller/plugins/zoom-master/jquery.zoom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+﻿@model StartApp.Models.AffiliateView
+@using StartApp.Business
+@{
+    ViewBag.Title = "Destek Talebi";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+    List<SelectListItem> DepartmanList = new List<SelectListItem>();
+    DepartmanList.Add(new SelectListItem { Text = "Pazarlama", Value = "Pazarlama" });
+    DepartmanList.Add(new SelectListItem { Text = "Muhasebe", Value = "Muhasebe" });
+    DepartmanList.Add(new SelectListItem { Text = "TeknikDestek", Value = "Teknik Destek" });
+}
+
+@using (Html.BeginForm())
+{
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Destek</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Reseller">Panel</a></li>
+                        <li class="active">Destek</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h2 class="m-b-20">Size Nasıl Yardımcı Olabiliriz?</h2>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><b>Departman</b></label>
+                                @Html.DropDownListFor(x => x.SupportDetails.Departman, (List<SelectListItem>)DepartmanList, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label><b>Konu</b></label>
+                                @Html.TextBoxFor(x => x.SupportDetails.Subject, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label><b>İçerik</b></label>
+                                @Html.TextAreaFor(x => x.SupportDetails.Message, new { @class = "form-control", @required = "required", @Rows = "6" })
+                            </div>
+                            <div class="form-group">
+                                @Html.HiddenFor(x => x.SupportDetails.Status, new { Value = "1" })
+                                <button type="submit" class="btn btn-default">Talebi Gönder</button>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    @Html.HiddenFor(x => x.SupportDetails.RegisterDate, new { @Value = DateTime.Now })
+                                    @Html.HiddenFor(x => x.SupportDetails.Status, new { @Value = "1" })
+                                    @Html.HiddenFor(x => x.SupportDetails.Process, new { @Value = "BEKLİYOR" })
+                                    @Html.HiddenFor(x => x.SupportDetails.Email, new { @Value = "musteri@toptanara.com" })
+                                    @Html.HiddenFor(x => x.SupportDetails.UserID, new { @Value = @ViewBag.UserID })
+                                    @Html.HiddenFor(x => x.SupportDetails.UserName, new { @Value = @ViewBag.UserName })
+                                    <div class="alert alert-@ViewBag.Status" role="alert"> @ViewBag.Result</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- /.container-fluid -->
+        @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+    </div>
+}
+

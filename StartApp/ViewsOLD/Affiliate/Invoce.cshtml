@@ -1,0 +1,124 @@
+﻿@model StartApp.Models.AffiliateView
+@{
+    ViewBag.Title = "Invoce";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+
+    decimal TotalPrice = Convert.ToDecimal(ViewBag.TotalPrice);
+    decimal Amount = Convert.ToDecimal(ViewBag.Price);
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Sipariş Bilgileri</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Affiliate/">Panel</a></li>
+                    <li class="active">Sipariş Bilgileri</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="printableArea" class="white-box printableArea">
+                    <h3><b>SİPARİŞ BİLGİLERİ</b> <span class="pull-right"></span></h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <address>
+                                    <h3><b class="text-danger"> @Html.DisplayFor(x => x.AffOrderDetails.CompanyTitle) </b></h3>
+                                    <p class="text-muted m-l-5">
+                                        <b>TESLİMAT BİLGİLERİ</b><br />
+                                        @Html.DisplayFor(x => x.AffOrderDetails.CustomerName) @Html.DisplayFor(x => x.AffOrderDetails.CustomerSurname)
+                                        <br /> @Html.DisplayFor(x => x.AffOrderDetails.Address)
+                                        <br /> @Html.DisplayFor(x => x.AffOrderDetails.City)
+                                        <br /> @Html.DisplayFor(x => x.AffOrderDetails.Phone)
+                                        <br />Siparş Notu: @Html.DisplayFor(x => x.AffOrderDetails.Note)
+                                    </p>
+                                </address>
+                            </div>
+                            <div class="pull-right text-right">
+                                <address>
+                                    <h4 class="font-bold">#@Model.AffOrderDetails.ID</h4>
+                                    <p> <i class="fa fa-calendar"></i> <b> Tarih :</b> @Model.AffOrderDetails.RegisterDate</p>
+                                    @if (Model.AffOrderDetails.Confirm == 1)
+                                    {
+                                        <p><span style="color:#ffc926;"><i class="fa fa-dot-circle-o"></i><b> Onay Bekliyor </b> </span></p>
+                                    }
+                                    else if (Model.AffOrderDetails.Confirm == 2)
+                                    {
+                                        <p><span style="color:#ff0000;"><i class="fa fa-dot-circle-o"></i><b> Hazırlanıyor </b> </span> </p>
+                                    }
+                                    else if (Model.AffOrderDetails.Confirm == 3)
+                                    {
+                                        <p> <span style="color:#01c0c8;"><i class="fa fa-dot-circle-o"></i><b> Gönderildi </b> </span>  </p>
+                                    }
+                                    else if (Model.AffOrderDetails.Confirm == 4)
+                                    {
+                                        <p> <span style="color:#30aa40;"><i class="fa fa-dot-circle-o"></i><b> Teslim Edildi </b> </span></p>
+                                    }
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive m-t-40" style="clear: both;">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Ürün Kodu</th>
+                                            <th>Fotoğraf</th>
+                                            <th>Ürün</th>
+                                            <th>Birim Fiyat</th>
+                                            <th>Adet</th>
+                                            <th>Tutar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-bold">@Model.AffOrderProductDetails.StockCode</td>
+                                            <td><img src="~/Assets/Products/@Model.AffOrderProductDetails.Image" width="40" /></td>
+                                            <td class="font-bold">@Model.AffOrderProductDetails.Title</td>
+                                            <td class="font-bold"> @Amount.ToString("0.00")<i class="fa fa-try"></i></td>
+                                            <td class="font-bold">@ViewBag.Quantity</td>
+                                            <td class="font-bold">@TotalPrice.ToString("0.00")<i class="fa fa-try"></i> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="pull-right m-t-30 text-right">
+                                <h3>Toplam: <strong> @TotalPrice.ToString("0.00")<i class="fa fa-try"></i> </strong></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <a href="~/Affiliate/BankWire?OrderID=@Model.AffOrderDetails.ID" class="btn btn-danger" type="submit"> <i class="fa fa-money"></i> Ödeme Yap </a>
+                        <button id="btnPrint" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Yazdır</span> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- /.container-fluid -->
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+<script type="text/javascript">
+
+    $("#btnPrint").click(function () {
+        var printItem = document.getElementById("printableArea");
+        printDiv(printItem);
+    });
+    //For Invoce Print
+
+
+</script>
+

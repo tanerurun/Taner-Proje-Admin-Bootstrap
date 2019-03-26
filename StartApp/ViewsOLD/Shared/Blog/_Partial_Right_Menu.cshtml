@@ -1,0 +1,27 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@{
+    cSeo Seo = new cSeo();
+    cBlogs Blog = new cBlogs();
+    Model.BlogCategories = Blog.Categories();
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-chevron-circle-down"></i> KATEGORİLER
+        <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-minus"></i></a> <a href="#" data-perform="panel-dismiss"></a> </div>
+    </div>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+        <div class="panel-body">
+            <ul class="nav nav-second-level collapse in" aria-expanded="true">
+                <li><a href="~/blog"><i class="ti-angle-double-left"></i> <strong>Blog Anasayfa</strong></a></li>
+                @foreach (var item in Model.BlogCategories)
+                {
+                    <li><a href="~/blog/category/@Seo.CreateUrl(item.Name)-@item.ID"><i class="ti-angle-double-right"></i> @item.Name</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

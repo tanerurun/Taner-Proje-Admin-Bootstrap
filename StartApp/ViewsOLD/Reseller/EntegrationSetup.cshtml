@@ -1,0 +1,59 @@
+﻿@using StartApp.Models
+@model StartApp.Models.ResellerView
+@{
+    ViewBag.Title = "Entegrasyon - toptanara.com";
+    Layout = "~/Views/Shared/_LayoutReseller.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Entegrasyon Kurulumu</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Reseller">Panel</a></li>
+                    <li class="active">Entegrasyon Kurulumu</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    @if (Model.CustomerDetails.ApiActive == 0)
+                    {
+                    <div class="col-md-12" align="center">
+                        <div> <i style="font-size:36pt;" class="fa fa-gears"></i> </div>
+                        <h3>XML servisini kullanabilmek için entegrasyon hizmetini başlatmanız gerekmektedir.</h3>
+                         
+                        <hr />
+                        <a href="../reseller/EntegrationSetup?Start=1" class="btn btn-warning btn-lg"><i class="fa fa-gear"></i> XML Entegrasyon Servisini Başlat</a>
+                     </div>
+                    <div class="clearfix"></div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <p><i class="fa fa-warning"></i> Web servis metotlarını çalıştırmak için istek sayfasının header bölümüne ApiKey ve ApiSecret bilgilerinizi göndermeniz gerekmektedir.</p>
+                            <div class="form-group mt-3">
+                             <label>ApiKey</label>
+                             <input type="text" readonly class="form-control" value="@Model.CustomerDetails.ApiKey" />
+                         </div>
+                            <div class="form-group">
+                                <label>ApiSecret</label>
+                                <input type="text" readonly class="form-control" value="@Model.CustomerDetails.ApiSecret" />
+                            </div>
+                            <p><b>*ÖNEMLİ!</b> Web servis kurulumu ve kullanabileceğiniz metotları incelemek için tıklayınız. <a href="http://developers.toptanara.com/" target="_blank">Developers</a></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+          </div>
+            </div>
+        </div>
+</div>
+
+

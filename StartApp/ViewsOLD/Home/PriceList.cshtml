@@ -1,0 +1,79 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Fiyat Listesi - toptanara.com";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+}
+
+<div class="stpr-background-color">
+    <div class="container" style="padding-top:80px;">
+        <div class="">
+            <ol class="breadcrumb" style="font-weight:500;">
+                <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                <li class="active">Fiyat Listesi</li>
+            </ol>
+        </div>
+        <!--breadcrumb-->
+        <div class="white-box m-b-40">
+            <div class="col-md-12">
+                <h2 align="center"> <strong>FİYAT LİSTESİ</strong></h2>
+                <hr />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!--breadcrumb-->
+
+        <div class="clearfix"></div>
+
+        <!-- /.row -->
+        <div class="row m-0">
+            @foreach (var item in Model.ProductsPaging)
+            {
+                decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+                <a href="#">
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-0 p-0">
+                        <div class="stpr-product-block">
+                            <div class="stpr-product-img">
+                                <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                            </div>
+                            <div class="stpr-product-title">
+                                @if (item.Discount > 0)
+                                {
+                                    <span class="label label-warning" style="font-size:11pt!important"><b> %@Convert.ToInt32(item.Discount) İskontolu</b></span>
+                                }
+                                <h2 style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="#"> @item.Title </a> </h2>
+                                <small class="text-muted db">Stok Kodu: @item.StockCode </small>
+                            </div>
+                            <div class="stpr-product-description m-b-15">
+                                @if (!string.IsNullOrEmpty(item.Details))
+                                {
+                                    <p><b>Detay:</b> @Html.Raw(item.Details)</p>
+                                }
+                                <h4>Birim Fiyat: <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h4>
+                                <button type="button" class="btn btn-default">
+                                    Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="row pull-right">
+            @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("PriceList", new RouteValueDictionary {
+            { "Page", Page },
+            { "ID", ViewBag.ID }
+            }))
+        </div>
+        <b>Gösterilen Ürün: @ViewBag.CountPage</b>
+        <b>Toplam Ürün: @ViewBag.Count</b>
+    </div>
+    <div class="clearfix"></div>
+    <br /><br />
+</div>
+

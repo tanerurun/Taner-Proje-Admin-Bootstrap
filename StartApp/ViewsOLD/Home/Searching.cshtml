@@ -1,0 +1,151 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = @ViewBag.SerchingText + " | toptanara.com";
+    ViewBag.Description = @ViewBag.SerchingText + " toptan binlerce ürün burada! Birçok markanın " + @ViewBag.SerchingText + " ürünlerine erişin.";
+    ViewBag.MetaTag = @ViewBag.SerchingText + "toptan," + @ViewBag.SerchingText + " toptan al," + @ViewBag.SerchingText + " ucuz" + @ViewBag.CategoriyName + " indirim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+    string SrchText = ViewBag.SerchingText;
+    string pageUrl = HttpContext.Current.Request.Url.AbsolutePath;
+    string BrandIsActive = ViewBag.BrandIsActive;
+
+
+}
+<form method="post" id="SearchingForm" action="~/@Request.Cookies["Language"].Value.ToLower()/searching">
+        <div class="stpr-background-color">
+            <div class="container" style="padding-top:80px;">
+                <div>
+                    <ol class="breadcrumb" style="font-weight:500;">
+                        <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                        <li> <a href="~/">Arama</a></li>
+                        <li><a class="active">@ViewBag.SerchingText</a></li>
+                    </ol>
+                </div>
+                <div class="col-md-2" style="padding:0px;">
+                     <div class="panel panel-default">
+                         <div class="panel-heading">
+                             <i class="fa fa-filter"></i> Markalar
+                             <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-plus"></i></a> <a href="#" data-perform="panel-dismiss"></a> </div>
+                         </div>
+                         <div class="panel-wrapper collapse in" aria-expanded="true">
+                             <div class="panel-body">
+                                 @for (int i = 0; i < Model.BrandForFillter.Count(); i++)
+                                 {
+                                     <label>
+                                         @Html.CheckBoxFor(x => x.BrandForFillter[i].IsActive, new { @class = "ChckBrand" })
+                                         @Html.HiddenFor(x => x.BrandForFillter[i].ID)
+                                         @Html.HiddenFor(x => x.BrandForFillter[i].Name)
+                                         @Model.BrandForFillter[i].Name
+                                     </label><br />
+                                 }
+                                 @Html.Hidden("txtsearch", SrchText)
+                                 @Html.Hidden("cBrandIsActive", BrandIsActive)
+                             </div>
+                         </div>
+                     </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-try"></i> Fiyat ARALIĞI
+                            <div class="pull-right"><a href="#" data-perform="panel-collapse"><i class="ti-plus"></i></a> <a href="#" data-perform="panel-dismiss"></a> </div>
+                        </div>
+                        <div class="panel-wrapper collapse in" aria-expanded="true">
+                            <div class="panel-body">
+                                <label>En Az</label>
+                                <input type="number" name="PriceStart" class="form-control" value="" />
+                                <label>En Fazla</label>
+                                <input type="number" name="PriceEnd" class="form-control" value="" />
+                                <br />
+                                <button type="submit" style="color:#000;" class="btn btn-warning"><i class=" fa fa-search"></i> Göster</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.row -->
+                <div class="col-md-10" style="padding-right:0px;margin-right:0px;">
+                    <div class="clearfix"></div>
+                    <!--Filter-->
+                    <div class="stpr-category-filter-block">
+                        <div class="col-md-3 p-0"><a id="New" href="@pageUrl?SearchText=@ViewBag.SerchingText&Sort=New" class="btn btn-default btn-block stpr-category-filter"><i class="fa fa-sort"></i> En Yeniler</a> </div>
+                        <div class="col-md-3 p-0"><a id="Populer" href="@pageUrl?SearchText=@ViewBag.SerchingText&Sort=Populer" class="btn btn-default btn-block stpr-category-filter"><i class="fa fa-eye"></i> Çok Tıklananlar</a> </div>
+                        <div class="col-md-3 p-0"><a id="PriceLow" href="@pageUrl?SearchText=@ViewBag.SerchingText&Sort=PriceLow" class="btn btn-default btn-block stpr-category-filter"><i class="fa fa-sort-amount-asc"></i> En Düşük Fiyat</a> </div>
+                        <div class="col-md-3 p-0"><a id="PriceHigh" href="@pageUrl?SearchText=@ViewBag.SerchingText&Sort=PriceHigh" class="btn btn-default btn-block stpr-category-filter"><i class="fa fa-sort-amount-desc"></i>  En Yüksek Fiyat</a> </div>
+                        <input id="FilterQuery" type="hidden" value="@ViewBag.Sort" />
+                        <div class="clearfix"></div>
+                        @{
+                            //Urlyi sıfırla
+                            pageUrl = "";
+                        }
+                    </div>
+                    <div class="row">
+                        @foreach (var item in Model.ProductsPaging)
+                        {
+                            decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+                            <a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="stpr-product-block">
+                                        <div class="stpr-product-img">
+                                            <img src="http://www.toptanara.com/Assets/Products/@item.MainImage" class="img-responsive" />
+                                        </div>
+                                        <div class="stpr-product-title">
+                                            <h2 class="stpr-title-limit" style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0"><a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a> </h2>
+                                            <small class="text-muted db"> @item.ManufacturerName @item.StockCode</small>
+                                        </div>
+                                        <div class="stpr-product-description m-b-15">
+                                            <h3> <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h3>
+                                            @if (item.Quantity < 3)
+                                            {
+                                                <div class="input-group">
+                                                    <div class="alert alert-danger" style="background-color:#d43333; padding:7px;" role="alert"><i class="fa fa-warning"></i> <b>Satışa Kapalı</b></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-default">
+                                                    Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="row pull-right">
+                    @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("Searching", new RouteValueDictionary {
+                    { "SearchText", ViewBag.SerchingText},
+                    { "Page", Page },
+                    { "PriceStart", ViewBag.PriceStart },
+                    { "PriceEnd", ViewBag.PriceEnd },
+                    {"BrandFilter", ViewBag.BrandFilter},
+                    {"Sort", ViewBag.Sort},
+                    }))
+                </div>
+                <b>Toplam Ürün: @ViewBag.Count</b>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+</form>                 }
+    <!-- /.container-fluid -->
+    <script type="text/javascript">
+        $(".ChckBrand").change(function () {
+            $("#SearchingForm").submit();
+        });
+
+        //Eğer fiyat filtreleme varsa seçimleri kaldır.
+        var cBrandIsActive = $('#cBrandIsActive').val();
+        if (cBrandIsActive == "false") {
+            $('.ChckBrand').attr('checked', false);
+        } 
+
+        var FilterQ = $("#FilterQuery").val();
+        $("#" + FilterQ).addClass("stpr-category-filter-select");
+
+    </script>
+

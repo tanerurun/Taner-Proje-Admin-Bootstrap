@@ -1,0 +1,16 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "BotPasabahce";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm()) {
+     @Html.TextBoxFor(x=>x.ProductDetails.SeoUrl, new { @class="form-control" })
+
+    <input type="submit" value="Gönder" />
+}
+
+<hr />
+   Ürün Kodu: @ViewBag.ProductCode
+   Ürün Başlık: @ViewBag.ProdcutTitle
+

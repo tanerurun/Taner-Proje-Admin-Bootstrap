@@ -1,0 +1,85 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Business
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title =  "Yeni Ürünler - toptanara.com'da";
+    ViewBag.Description = "toptan binlerce ürün burada! Birçok markanın binlerce ürünlerine erişin.";
+    ViewBag.MetaTag = "toptan, toptan al, ucuz, indirim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    cSeo Seo = new cSeo();
+    int Count = Convert.ToInt32(ViewBag.Count);
+    string pageUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+    string[] PageUrlArr = pageUrl.Split('?');
+    string[] FilterQueryArr = pageUrl.Split('=');
+
+
+}
+
+<div class="stpr-background-color">
+    <div class="container" style="padding-top:80px;">
+        <div>
+            <ol class="breadcrumb" style="font-weight:500;">
+                <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                <li><a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler">Kategoriler</a></li>
+                <li><a class="active"> Yeni Ürünler</a></li>
+            </ol>
+        </div>
+        <!-- /.row -->
+        <div class="col-md-12" style="padding-right:0px;margin-right:0px;">
+
+            <div class="row">
+                @foreach (var item in Model.ProductsPaging)
+                {
+                    decimal Amount = Convert.ToDecimal(item.CostPrice + (item.CostPrice * item.Percentage / 100));
+
+                    <a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="stpr-product-block">
+                                <div class="stpr-product-img">
+                                    <img src="~/Assets/Products/@item.MainImage" class="img-responsive" />
+                                </div>
+                                <div class="stpr-product-title">
+
+                                    <h2 style="font-size:12pt; font-weight:500; line-height:20px;" class="box-title m-b-0 stpr-title-limit"><a href="~/@Request.Cookies["Language"].Value.ToLower()/@Seo.CreateUrl(item.CategoryTitle)/@Seo.CreateUrl(item.Title)-@item.ID"> @item.Title </a> </h2>
+                                    <small class="text-muted db"> @item.ManufacturerName @item.StockCode</small>
+                                </div>
+                                <div class="stpr-product-description m-b-15">
+                                    <h3> <strong>@Amount.ToString("0.00")<i class="fa fa-try"></i></strong></h3>
+                                    <button type="button" class="btn btn-default">
+                                        Min Sipariş <span class="badge badge-warning">@item.MinOrder</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+
+        @if (ViewBag.Count == 0)
+            {<div class="col-md-10" style="padding-right:0px;margin-right:0px;">
+            <div class="white-box" align="center">
+                <h4><i class="fa fa-warning"></i>Yeni Ürün Bulunamadı.<br /><small>Daha Sonra Tekrar Ziyaret Ediniz.</small></h4>
+            </div>
+        </div>
+        }
+        <div class="clearfix"></div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-12">
+            <div class="pull-left">
+                <p style="font-weight:500;"><i class="fa fa-search-plus"></i> @Model.ProductsPaging.TotalItemCount ürün bulundu.</p>
+            </div>
+            <div class="pull-right">
+                @Html.PagedListPager((IPagedList)Model.ProductsPaging, Page => Url.Action("NewProducts", new RouteValueDictionary {
+                    { "Page", Page },
+                    }))
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+

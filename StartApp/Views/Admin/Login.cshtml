@@ -1,0 +1,213 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="tr">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Yönetim Panel - Giriş!</title>
+    <link href="../Assets/admin/modules/core/img/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet">
+    <!-- VENDORS -->
+    <!-- v2.0.0 -->
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/jscrollpane/style/jquery.jscrollpane.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/ladda/dist/ladda-themeless.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/bootstrap-sweetalert/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/summernote/dist/summernote.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/ionrangeslider/css/ion.rangeSlider.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/datatables/media/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/c3/c3.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/chartist/dist/chartist.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/nprogress/nprogress.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/jquery-steps/demo/css/jquery.steps.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/dropify/dist/css/dropify.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/font-linearicons/style.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/font-icomoon/style.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/cleanhtmlaudioplayer/src/player.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/vendors/cleanhtmlvideoplayer/src/player.css">
+    <script src="../Assets/admin/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../Assets/admin/vendors/tether/dist/js/tether.min.js"></script>
+    <script src="../Assets/admin/vendors/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../Assets/admin/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../Assets/admin/vendors/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+    <script src="../Assets/admin/vendors/jscrollpane/script/jquery.jscrollpane.min.js"></script>
+    <script src="../Assets/admin/vendors/spin.js/spin.js"></script>
+    <script src="../Assets/admin/vendors/ladda/dist/ladda.min.js"></script>
+    <script src="../Assets/admin/vendors/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../Assets/admin/vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../Assets/admin/vendors/html5-form-validation/dist/jquery.validation.min.js"></script>
+    <script src="../Assets/admin/vendors/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
+    <script src="../Assets/admin/vendors/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+    <script src="../Assets/admin/vendors/autosize/dist/autosize.min.js"></script>
+    <script src="../Assets/admin/vendors/bootstrap-show-password/bootstrap-show-password.min.js"></script>
+    <script src="../Assets/admin/vendors/moment/min/moment.min.js"></script>
+    <script src="../Assets/admin/vendors/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../Assets/admin/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="../Assets/admin/vendors/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Assets/admin/vendors/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js"></script>
+    <script src="../Assets/admin/vendors/summernote/dist/summernote.min.js"></script>
+    <script src="../Assets/admin/vendors/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../Assets/admin/vendors/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="../Assets/admin/vendors/nestable/jquery.nestable.js"></script>
+    <script src="../Assets/admin/vendors/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../Assets/admin/vendors/datatables/media/js/dataTables.bootstrap4.js"></script>
+    <script src="../Assets/admin/vendors/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="../Assets/admin/vendors/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="../Assets/admin/vendors/editable-table/mindmup-editabletable.js"></script>
+    <script src="../Assets/admin/vendors/d3/d3.min.js"></script>
+    <script src="../Assets/admin/vendors/c3/c3.min.js"></script>
+    <script src="../Assets/admin/vendors/chartist/dist/chartist.min.js"></script>
+    <script src="../Assets/admin/vendors/peity/jquery.peity.min.js"></script>
+    <script src="../Assets/admin/vendors/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../Assets/admin/vendors/jquery-countTo/jquery.countTo.js"></script>
+    <script src="../Assets/admin/vendors/nprogress/nprogress.js"></script>
+    <script src="../Assets/admin/vendors/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="../Assets/admin/vendors/chart.js/dist/Chart.bundle.min.js"></script>
+    <script src="../Assets/admin/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="../Assets/admin/vendors/cleanhtmlaudioplayer/src/jquery.cleanaudioplayer.js"></script>
+    <script src="../Assets/admin/vendors/cleanhtmlvideoplayer/src/jquery.cleanvideoplayer.js"></script>
+
+    <!-- v2.0.0 -->
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/core/css/core.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/vendors/css/vendors.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/layouts/css/layouts-pack.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/themes/css/themes.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/menu-left/css/menu-left.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/menu-right/css/menu-right.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/top-bar/css/top-bar.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/footer/css/footer.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/pages/css/pages.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/ecommerce/css/ecommerce.cleanui.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/admin/modules/apps/css/apps.cleanui.css">
+    <script src="../Assets/admin/modules/menu-left/js/menu-left.cleanui.js"></script>
+    <script src="../Assets/admin/modules/menu-right/js/menu-right.cleanui.js"></script>
+    <style>
+        body {
+            padding-top: 0px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body class="cat__config--vertical cat__config--compact cat__menu-left--colorful">
+    @using (Html.BeginForm())
+    {
+    <!-- START: pages/login-beta -->
+        <div class="cat__pages__login" style="background-image: url(../Assets/admin/modules/pages/img/login/1.jpg)">
+            <div class="cat__pages__login__block cat__pages__login__block--extended">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="cat__pages__login__block__inner">
+                            <div class="cat__pages__login__block__form">
+                                <h4 class="text-uppercase">
+                                    <strong>YÖNETİM PANELİ</strong>
+                                </h4>
+                                <br />
+                                <div class="form-group">
+                                    <label class="form-label"> <strong> Admin Kodu </strong></label>
+                                    <input id="validation-email"
+                                           class="form-control"
+                                           placeholder="Admin kodunuzu yazınız.."
+                                           name="AdminCode"
+                                           type="text"
+                                           required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><strong> Parola </strong></label>
+                                    <input id="validation-password"
+                                           class="form-control password"
+                                           name="Password"
+                                           type="password"
+                                           required
+                                           placeholder="parola.....">
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="example6" checked>
+                                            Beni Hatırla
+                                        </label>
+                                    </div>
+                                </div>
+                                @if (@ViewBag.Status != null)
+                                {
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <h3 style="color:#a00404"><i>*@ViewBag.Result</i></h3>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary mr-3">Giriş</button>
+                                </div>
+                            </div>
+                            <div class="cat__pages__login__block__sidebar">
+                                <h4 class="cat__pages__login__block__sidebar__title">
+                                    
+                                </h4>
+                                <div class="cat__pages__login__block__sidebar__item">
+                                    
+                                </div>
+                                <div class="cat__pages__login__block__sidebar__place">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: pages/login-beta -->
+            <!-- START: page scripts -->
+            <script>
+    $(function() {
+
+        // Form Validation
+        $('#form-validation').validate({
+            submit: {
+                settings: {
+                    inputContainer: '.form-group',
+                    errorListClass: 'form-control-error',
+                    errorClass: 'has-danger'
+                }
+            }
+        });
+
+        // Show/Hide Password
+        $('.password').password({
+            eyeClass: '',
+            eyeOpenClass: 'icmn-eye',
+            eyeCloseClass: 'icmn-eye-blocked'
+        });
+
+        // Switch to fullscreen
+        $('.switch-to-fullscreen').on('click', function () {
+            $('.cat__pages__login').toggleClass('cat__pages__login--fullscreen');
+        })
+
+        // Change BG
+        $('.random-bg-image').on('click', function () {
+            var min = 1, max = 5,
+                    next = Math.floor($('.random-bg-image').data('img')) + 1,
+                    final = next > max ? min : next;
+
+            $('.random-bg-image').data('img', final);
+            $('.cat__pages__login').data('img', final).css('backgroundImage', 'url(../../modules/pages/img/login/' + final + '.jpg)');
+        })
+
+    });
+            </script>
+        </div>
+    }
+</body>
+</html>
+

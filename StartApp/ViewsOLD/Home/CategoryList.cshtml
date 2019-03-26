@@ -1,0 +1,52 @@
+﻿@model StartApp.Models.HomeView
+@using StartApp.Models
+@using StartApp.Business
+@{
+    ViewBag.Title = "Binlerce Kategorideki Ürünler toptanara.com'da";
+    ViewBag.Description = "";
+    ViewBag.Keywords = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    cSeo Seo = new cSeo();
+    List<Categories> TempCategory = new List<Categories>();
+}
+
+@using (Html.BeginForm())
+{
+    <div class="stpr-background-color">
+        <div class="container" style="padding-top:80px;">
+            <div class="">
+                <ol class="breadcrumb" style="font-weight:500;">
+                    <li> <i class="fa fa-home"></i> <a href="~/">Anasayfa</a></li>
+                    <li class="active">Tüm Kategoriler</li>
+                </ol>
+            </div>
+                <!--breadcrumb-->
+                <div class="white-box" style="min-height:450px;">
+                    <div class="col-md-3">
+                        <a href="~/@Request.Cookies["Language"].Value.ToLower()/tum-kategoriler" style="color:#000000;" class="btn btn-block btn-warning"><strong>Tüm Kategorileri Listele</strong> <i class="fa fa-long-arrow-right"></i> </a>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    @foreach (var item in Model.Categories)
+                    {
+                        if (item.MainCategoryID == 0)
+                        {
+                            <hr />
+                            <h3><i class="fa fa-caret-right"></i> @item.Name</h3>
+                            
+                            TempCategory = Model.Categories.Where(x => x.MainCategoryID == item.ID).ToList();
+                            foreach (var itemx in TempCategory)
+                            {
+                                <div class="col-md-3 col-xs-12"><a href="~/@Request.Cookies["Language"].Value.ToLower()/category/@Seo.CreateUrl(itemx.Name)-@itemx.ID"><i class="fa fa-caret-right"></i> @itemx.Name</a> </div>
+                            }
+                        }
+                        <div class="clearfix"></div>
+                    }
+                </div>
+
+            <!--breadcrumb-->
+
+        </div>
+    </div>
+}

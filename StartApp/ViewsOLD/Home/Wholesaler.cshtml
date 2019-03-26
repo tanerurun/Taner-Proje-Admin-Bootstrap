@@ -1,0 +1,204 @@
+﻿@model StartApp.Models.HomeView
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Toptancı Kayıt - toptanara.com</title>
+    <link rel="icon" type="~/Assets/reseller/image/png" sizes="32x32" href="~/Assets/reseller/plugins/images/favicon.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Assets/reseller/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/reseller/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+    <!-- This is Sidebar menu CSS -->
+    <link href="~/Assets/reseller/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- This is a Animation CSS -->
+    <link href="~/Assets/reseller/css/animate.css" rel="stylesheet">
+    <!-- This is a Custom CSS -->
+    <link href="~/Assets/reseller/css/style.css" rel="stylesheet">
+    <link href="~/Assets/reseller/plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/reseller/plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-color:#ebeff3">
+
+    <div style="background-color:#01c0c8;padding:15px;" class="row">
+        <div class="center-block" align="center">
+            <a href="~/" align="center">
+                <img src="~/Assets/reseller/images/logo.png" />
+            </a>
+        </div>
+    </div>
+    <div class="row" style="padding-top:20px;background-color:#ffc926">
+        <div class="center-block">
+            <p style="color:#000; text-align:center; font-size:16pt; font-weight:500;">Türkye'nin en çok toptan ürün aranan pazaryerine katılın.<br /><i style="font-size:34pt;" class="fa fa-chevron-down"></i></p>
+        </div>
+    </div>
+    <div class="container pt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h2 align="center"><i class="fa fa-send"></i> MARKA BAŞVURU FORMU </h2> </div>
+                    <div class="panel-wrapper collapse in" aria-expanded="true">
+                        @if (ViewBag.Status == null)
+                        {
+                            <div class="panel-body">
+                                @using (Html.BeginForm())
+                                {
+                                    <div class="form-horizontal form-bordered">
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Firma Ünvanı*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.CompanyTitle, new { @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Marka*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Brand, new { @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Yetkili Ad*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Name, new { @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Yetkili Soyad*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Surname, new { @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">E-Posta*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Email, new { @class = "form-control", @Type = "Email", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Telefon*</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Phone, new { @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Cep Telefon</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.GSMPhone, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Ülke</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Country, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Şehir</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.City, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Adres</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextAreaFor(x => x.WholesalerDetails.Address, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Posta Kodu</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.PostCode, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">T.C. No</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.TC, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Vergi Dairesi</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.TaxName, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Vergi No</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.TaxNumber, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Mersis</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Mersis, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Kep</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Kep, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Banka Adı</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.BankName, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Iban No</label>
+                                                <div class="col-md-7">
+                                                    @Html.TextBoxFor(x => x.WholesalerDetails.Iban, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.HiddenFor(x => x.WholesalerDetails.Status, new { @Value = "0" })
+                                                <button type="submit" style="background-color:#01c0c8;border-color:#01c0c8" class="btn btn-success offset-3"> <i class="fa fa-check"></i> Gönder</button>
+                                                <a href="~/" type="button" class="btn btn-default">İptal</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="panel-body" style="min-height:350px;">
+                                <div align="center">
+                                    <h1 style="margin-top:100px; font-size:12pt;" class="label label-@ViewBag.Status">@ViewBag.Result</h1>
+                                    <br /><br />
+                                    <p>Başvurunuz kontrol edilip en kısa sürede size dönüş yapılakacaktır.</p>
+                                    <br /><br />
+                                    <a href="~/"><b><i class="fa fa-arrow-left"></i> Anasayfa'ya dön </b></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Assets/reseller/bootstrap/dist/js/tether.min.js"></script>
+    <script src="~/Assets/reseller/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Assets/reseller/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+    <!-- Sidebar menu plugin JavaScript -->
+    <script src="~/Assets/reseller/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--Slimscroll JavaScript For custom scroll-->
+    <script src="~/Assets/reseller/js/jquery.slimscroll.js"></script>
+
+    <link href="~/Assets/reseller/css/animate.css" rel="stylesheet">
+    <!--Wave Effects -->
+    <script src="~/Assets/reseller/js/waves.js"></script>
+    <script src="~/Assets/reseller/plugins/bower_components/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Assets/reseller/plugins/bower_components/owl.carousel/owl.custom.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Assets/reseller/js/custom.min.js"></script>
+    <script src="~/Assets/reseller/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+ </body>
+</html>

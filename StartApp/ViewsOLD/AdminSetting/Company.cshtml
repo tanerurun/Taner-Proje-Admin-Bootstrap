@@ -1,0 +1,114 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Firma Bilgileri";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Ayarlar</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <div class="nav-tabs-horizontal">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/AdminSetting/Company" role="tab" aria-expanded="true">
+                        <i class="fa fa-building-o"></i>
+                        Firma Bilgileri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/AdminSetting/Site" role="tab" aria-expanded="false">
+                        <i class="fa fa-info-circle"></i> Site Tercihleri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/AdminSetting/Users" role="tab" aria-expanded="false">
+                        <i class="icmn-user"></i> Kullanıcılar
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home2" role="tabcard" aria-expanded="true">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="form-group">
+                                <label>Firma Adı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Title, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Phone, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Cep Telefon</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.GSM, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Ülke</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Country, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Şehir</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.City, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Adres</label>
+                                @Html.TextAreaFor(x => x.CompanyDetails.Address, new { @class = "form-control", required = "required", @Rows = "3" })
+                            </div>
+                            <div class="form-group">
+                                <label>E-Posta</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Email, new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Posta Kodu</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.PostCode, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Facebook, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Twitter Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Twitter, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Instagram, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>GooglePlus Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Googleplus, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Youtube Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Youtube, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Harita Bağlantısı</label>
+                                @Html.TextBoxFor(x => x.CompanyDetails.Map, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.HiddenFor(x => x.CompanyDetails.ID)
+                                <input type="submit" class="btn btn-primary" value="Kaydet" />
+                            </div>
+                        }
+                    </div>
+                    @if (ViewBag.Status != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

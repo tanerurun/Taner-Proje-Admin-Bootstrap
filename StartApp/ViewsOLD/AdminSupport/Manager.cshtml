@@ -1,0 +1,45 @@
+﻿@model StartApp.Models.AdminView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> Destek Yönetimi</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        <table class="table table-hover nowrap" id="example1" width="100%">
+            <thead class="thead-default">
+                <tr>
+                    <th>No</th>
+                    <th>Tarih</th>
+                    <th>Kodu</th>
+                    <th>Satıcı</th>
+                    <th>Konu</th>
+                    <th>Mesaj</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Supports)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.RegisterDate</td>
+                        <td>@item.UserID</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Subject</td>
+                        <td>@item.Message</td>
+                        <td>
+                            <a href="#" class="cat__core__link--underlined mr-2"><i class="icmn-pencil"><!-- --></i> Düzenle</a>
+                            <a href="#" onclick="return confirm('Silmek istediğinizden eminin misiniz?');" class="cat__core__link--underlined mr-2"> <i class="icmn-box-remove"><!-- --></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

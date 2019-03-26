@@ -1,0 +1,75 @@
+﻿@model  StartApp.Models.AdminView
+@using StartApp.Business
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">
+        <a href="~/AdminMarket/Manager" class="pull-right btn btn-success"> <i class="fa fa-list"></i> Tüm Kategoriler</a>
+        <a href="~/AdminMarket/Add" class="pull-right btn btn-primary"> <i class="fa fa-plus-circle"></i>  Yeni Kategori Ekle</a>
+        <span class="cat__core__title">
+            <strong><i class="icmn-stack"></i> N11 Kategori Güncelleme</strong>
+        </span>
+    </div>
+    <div class="card-block">
+        @using (Html.BeginForm())
+        {
+           <div class="col-md-6">
+               <div class="form-group">
+                   <label>N11 Kategori No</label>
+                   @Html.TextBoxFor(x=>x.N11CategoriyDetails.CategoryID, new { @class="form-control", required="required"} )
+               </div>
+               <div class="form-group">
+                   <label>N11 Ana Kategori</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.MainCategoryTitle, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>N11 Kategori Adı</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.CategoryTitle, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>Toptanara Kategori No</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.ToptanaraCategoryID, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>Toptanara Kategori Adı</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.ToptanaraCategoryTitle, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>N11 Oranı</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.PercentAge, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>Kargo Bedeli</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.CargoPrice, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>Kazanç (TL)</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.Price, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <label>Açıklama</label>
+                   @Html.TextAreaFor(x => x.N11CategoriyDetails.Description, new { @class = "form-control" })
+               </div>
+               <div class="form-group">
+                   <label>Durum</label>
+                   @Html.TextBoxFor(x => x.N11CategoriyDetails.Status, new { @class = "form-control", required = "required" })
+               </div>
+               <div class="form-group">
+                   <input type="submit" class="btn btn-primary" value="Güncelle" />
+                   @Html.HiddenFor(x=>x.N11CategoriyDetails.ID)
+               </div>
+               @if (ViewBag.Status != null)
+               {
+
+                <div class="form-group">
+                    <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                </div>
+               }
+           </div>
+        }
+    </div>
+
+</section>

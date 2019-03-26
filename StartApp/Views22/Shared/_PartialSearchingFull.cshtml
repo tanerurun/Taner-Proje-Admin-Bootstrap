@@ -1,0 +1,13 @@
+﻿@model StartApp.Models.HomeView
+
+@using (Html.BeginForm("Searching", "Home", null, FormMethod.Post))
+{
+<div class="search-box">
+    <div class="input-group">
+        <button class="btn btn-nobg getFullSearch" type="submit"> <i class="fa fa-search"> </i> @StartApp.Language.Text.Search</button>
+    </div>
+    <!-- /input-group -->
+
+</div>
+<!--/.search-box -->
+}

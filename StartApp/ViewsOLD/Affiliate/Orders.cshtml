@@ -1,0 +1,75 @@
+﻿@model StartApp.Models.AffiliateView
+@{
+    ViewBag.Title = "CustomerDetails";
+    Layout = "~/Views/Shared/_LayoutAffiliate.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Siparişler</h4>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/Affiliate">Panel</a></li>
+                    <li class="active">Siparişler</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    <div class="table-responsive" style="clear: both;">
+                        <table class="table table-striped" style="background-color:#fafafa" width="100%">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>Sipariş No</th>
+                                    <th>Tarih</th>
+                                    <th>Onay Durumu</th>
+                                    <th>İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Orders)
+                                {
+                                    <tr>
+                                        <td>#SPR-@item.ID</td>
+                                        <td>@item.RegisterDate</td>
+                                        @if (item.Confirm == 1)
+                                        {
+                                            <td><span style="color:#ffc926;"><i class="fa fa-dot-circle-o"></i><b> Onay Bekliyor </b> </span></td>
+                                        }
+                                        else if (item.Confirm == 2)
+                                        {
+                                            <td><span style="color:#ff0000;"><i class="fa fa-dot-circle-o"></i><b> Hazırlanıyor </b> </span> </td>
+                                        }
+                                        else if (item.Confirm == 3)
+                                        {
+                                            <td> <span style="color:#01c0c8;"><i class="fa fa-dot-circle-o"></i><b> Gönderildi </b> </span>  </td>
+                                        }
+                                        else if (item.Confirm == 4)
+                                        {
+                                            <td> <span style="color:#30aa40;"><i class="fa fa-dot-circle-o"></i><b> Teslim Edildi </b> </span></td>
+                                        }
+                                        <td><a href="/Affiliate/Invoce?OrderID=@item.ID" class="btn btn-warning btn-sm" style="color:#000000;"><i class="fa fa-file-text-o"></i> Detay</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- /.container-fluid -->
+    @Html.Partial("~/Views/Shared/Reseller/_Partial_Footer.cshtml")
+</div>
+
+
+
+

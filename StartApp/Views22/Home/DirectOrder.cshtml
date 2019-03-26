@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "DirectOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container main-container headerOffset">
+    <div class="row">
+        <h1 class="title-big text-center section-title-style2">
+            <span> Sipariş Formu </span>
+        </h1>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1" class="collapseWill" aria-expanded="true">
+                        Sipariş Bilgileri
+                        <span class="pull-left"> <i class="fa fa-caret-right"></i></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>*Lütfen sipariş için tüm alanları doldurunuz.</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput"> Firma Ünvanı* </label>
+                                <div class="col-md-4">
+                                    <input id="textinput" name="textinput" placeholder="..." class="form-control input-md" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="passwordinput">Yetkili Ad Soyad*</label>
+
+                                <div class="col-md-4">
+                                    <input  placeholder="..." class="form-control input-md" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Telefon*</label>
+                                <div class="col-md-4">
+                                    <input placeholder="..." class="form-control input-md" type="number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">E-Posta*</label>
+                                <div class="col-md-4">
+                                    <input placeholder="..." class="form-control input-md" type="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Adres*</label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" placeholder="..." rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Sipariş Detayı*</label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" placeholder="..." rows="5"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+
+                                <div class="col-md-4">
+                                   <button class="btn btn-primary"> <i class="fa fa-file-text-o"></i> Siparişi Tamamla</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
